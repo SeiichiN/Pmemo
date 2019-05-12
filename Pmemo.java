@@ -45,7 +45,7 @@ public class Pmemo {
                     }
                     break;
                 case 2:
-                    String thisName = printOneData();
+                    String thisName = printOneData(selectName());
                     int editNo = Integer.parseInt(getUserInput("修正したい項目番号 > "));
                     String newData = getUserInput("新しいデータ> ");
                     if (dao.updateData(thisName, editNo, newData, TABLENAME) > 0) {
@@ -56,10 +56,11 @@ public class Pmemo {
                     break;
                 case 3:
                     // データの検索
-                    printOneData();
+                    printOneData(selectName());
                     break;
                 case 4:
                     // データの削除
+                    deleteData();
                     break;
                 case 5:
                     // データの一覧
@@ -190,8 +191,8 @@ public class Pmemo {
     /**
      * ユーザにひとつのデータを選択させて、それを表示する
      */
-    static String printOneData() throws SQLException {
-        String hereIt = selectName();
+    static String printOneData(String hereIt) throws SQLException {
+        // String hereIt = selectName();
         pmemo = dao.selectOne(hereIt, TABLENAME);
         if (pmemo != null) {
             System.out.println("===================================");
@@ -209,5 +210,24 @@ public class Pmemo {
             }
         }
         return pmemo.getName();
+    }
+
+    /**
+     * 削除処理
+     */
+    static void deleteData() {
+        try {
+            System.out.println("\n===============|| 削除処理 ||==============");
+            String name = selectName();
+            System.out.println("\n削除対象はこのデータです。");
+            printOneData(name);
+            String yesno = getUserInput("削除してもよろしいですか？ (y/n) > ");
+            if ("y".equals(yesno.toLowerCase())) {
+                int ok = dao.deleteData(name, TABLENAME);
+                System.out.println(ok + "件削除しました。");
+            }
+        } catch (SQLException se) {
+            se.printStackTrace();
+        }
     }
 }

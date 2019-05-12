@@ -126,6 +126,23 @@ public class PmemoDao {
             }
         }
     }
+
+    // 削除処理
+    public int deleteData (String name, String tableName) throws SQLException {
+        PreparedStatement stmt = null;
+        int result = 0;
+
+        try {
+            String query = "delete from " + tableName + " where name = ?";
+            stmt = conn.prepareStatement(query);
+            stmt.setString(1, name);
+            result = stmt.executeUpdate();
+            return result;
+        }
+        finally {
+            if (stmt != null) { stmt.close(); }
+        }
+    }
 }
 
 /*
