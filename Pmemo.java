@@ -45,14 +45,7 @@ public class Pmemo {
                     }
                     break;
                 case 2:
-                    String thisName = printOneData(selectName());
-                    int editNo = Integer.parseInt(getUserInput("修正したい項目番号 > "));
-                    String newData = getUserInput("新しいデータ> ");
-                    if (dao.updateData(thisName, editNo, newData, TABLENAME) > 0) {
-                        System.out.println("更新しました。");
-                    } else {
-                        System.out.println("更新できませんでした。");
-                    }
+                    editData();
                     break;
                 case 3:
                     // データの検索
@@ -91,7 +84,22 @@ public class Pmemo {
         }
     }
 
+    /**
+     * 画面クリア
+     */
+    static void clearConsole() {
+        try {
+            ConsoleControl cc = new ConsoleControl("/bin/bash", "-c", "clear");
+            cc.cls();
+        } catch (IOException ie) {
+            ie.printStackTrace();
+        } catch (InterruptedException re) {
+            re.printStackTrace();
+        }
+    }
+    
     static int menu () {
+        clearConsole();
         System.out.println("\n処理を選んでください");
         System.out.println("----------------------");
         System.out.println("1) データの入力");
@@ -113,6 +121,22 @@ public class Pmemo {
         return no;
     }
 
+    /**
+     *
+     */
+    static void waitEnter() {
+        System.out.println("Enterキーを押してください...");
+        try {
+            int c = 0;
+            do {
+                c = 0;
+                c = System.in.read();
+            } while (c != 10);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+    
         /**
      * ユーザーに文字列の入力をしてもらい、それを返す
      * 
@@ -164,15 +188,37 @@ public class Pmemo {
     }
 
     /**
+     *
+     */
+    static void editData() {
+        try {
+            String thisName = printOneData(selectName());
+            int editNo = Integer.parseInt(getUserInput("修正したい項目番号（0:取消） > "));
+            if (editNo != 0) {
+                String newData = getUserInput("新しいデータ> ");
+                if (dao.updateData(thisName, editNo, newData, TABLENAME) > 0) {
+                    System.out.println("更新しました。");
+                } else {
+                    System.out.println("更新できませんでした。");
+                }
+            } else {
+                System.out.println("取り消しました。");
+            }
+        } catch (SQLException se) {
+            se.printStackTrace();
+        }
+    }
+
+    /**
      * データを name で選択する
      */
     static String selectName() {
-        System.out.println("選択するデータを name で指定してください。（help: 一覧）");
+        System.out.println("選択するデータを name で指定してください。（list: 一覧）");
         String name = null;
         do {
             name = getUserInput("name > ");
             ArrayList<String> nameList = new ArrayList<>();
-            if ("help".equals(name)) {
+            if ("list".equals(name)) {
                 try {
                     nameList = dao.nameList(TABLENAME);
                 } catch (SQLException se) {
@@ -185,7 +231,7 @@ public class Pmemo {
                 }
                 System.out.println("--------------------------------");
             }
-        } while ("help".equals(name));
+        } while ("list".equals(name));
         return name;
     }
 
@@ -199,6 +245,8 @@ public class Pmemo {
             System.out.println("===================================");
             System.out.println(pmemo.toString());
             System.out.println("===================================");
+            waitEnter();
+/*
             System.out.println("Enterキーを押してください...");
             try {
                 int c = 0;
@@ -209,6 +257,7 @@ public class Pmemo {
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
+*/
         }
         return pmemo.getName();
     }
@@ -226,6 +275,8 @@ public class Pmemo {
             if ("y".equals(yesno.toLowerCase())) {
                 int ok = dao.deleteData(name, TABLENAME);
                 System.out.println(ok + "件削除しました。");
+            } else {
+                System.out.println("処理をとりやめました。");
             }
         } catch (SQLException se) {
             se.printStackTrace();
@@ -253,5 +304,6 @@ public class Pmemo {
         } catch (SQLException se) {
             se.printStackTrace();
         }
+        waitEnter();
     }
 }
