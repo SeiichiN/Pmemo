@@ -26,11 +26,11 @@ public class PmemoEntity {
     public void setCreated_at(String created_at) {this.created_at = created_at; }
 
     public String toString() {
-        return "1) “o˜^–¼: " + name + "\n"
+        return "1) ç™»éŒ²å: " + name + "\n"
             + "2) ID: "+ id + "\n"
-            + "3) ƒ[ƒ‹ƒAƒhƒŒƒX: " + email + "\n"
-            + "4) ƒpƒXƒ[ƒh: " + password + "\n"
-            + "5) ƒƒ‚: " + other + "\n"
-            + "ì¬“ú: " + created_at;
+            + "3) ãƒ¡ãƒ¼ãƒ«ã‚¢ãƒ‰ãƒ¬ã‚¹: " + email + "\n"
+            + "4) ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰: " + password + "\n"
+            + "5) ãƒ¡ãƒ¢: " + other + "\n"
+            + "ä½œæˆæ—¥æ™‚: " + created_at;
     }
 }

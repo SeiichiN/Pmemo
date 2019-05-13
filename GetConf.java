@@ -5,8 +5,8 @@ import java.io.*;
 import java.util.*;
 
 /**
- * settei.conf ‚Ì“à—e‚ğ Map<String, String> ‚ÌŒ`‚Å“Ç‚İæ‚é
- * g‚¢•û:
+ * settei.conf ã®å†…å®¹ã‚’ Map<String, String> ã®å½¢ã§èª­ã¿å–ã‚‹
+ * ä½¿ã„æ–¹:
  *   Map<String, String> mapList = new GetConf("settei.conf").load();
  *   String username = mapList.get("username");
  */
@@ -29,7 +29,7 @@ public class GetConf {
                 addMap(line);
             }
         } catch (FileNotFoundException fe) {
-            System.out.println("ƒtƒ@ƒCƒ‹‚ª‚ ‚è‚Ü‚¹‚ñB");
+            System.out.println("ãƒ•ã‚¡ã‚¤ãƒ«ãŒã‚ã‚Šã¾ã›ã‚“ã€‚");
             System.exit(1);
         } catch (IOException ie) {
             ie.printStackTrace();
