@@ -143,6 +143,37 @@ public class PmemoDao {
             if (stmt != null) { stmt.close(); }
         }
     }
+
+    // ˆê——•\Ž¦
+    public ArrayList<PmemoEntity> listAll (String tableName) throws SQLException {
+        PreparedStatement stmt = null;
+        ResultSet result = null;
+        PmemoEntity pmemo = new PmemoEntity();
+        ArrayList<PmemoEntity> pmemoList = new ArrayList<PmemoEntity>();
+
+        try {
+            String query = "select * from " + tableName;
+            stmt = conn.prepareStatement(query);
+            result = stmt.executeQuery();
+
+            while (result.next()){
+                pmemo.setName(result.getString("name"));
+                pmemo.setId(result.getString("id"));
+                pmemo.setEmail(result.getString("email"));
+                pmemo.setPassword(result.getString("password"));
+                pmemo.setOther(result.getString("other"));
+                Date date = result.getTimestamp("created_at");
+                String dateString = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(date);
+                pmemo.setCreated_at(dateString);
+                pmemoList.add(pmemo);
+            }
+        }
+        finally {
+            if (result != null) { result.close(); }
+            if (stmt != null) { stmt.close(); }
+        }
+        return pmemoList;
+    }
 }
 
 /*

@@ -64,6 +64,7 @@ public class Pmemo {
                     break;
                 case 5:
                     // データの一覧
+                    listAll();
                     break;
                 case 6:
                     closeConnect(conn);
@@ -225,6 +226,29 @@ public class Pmemo {
             if ("y".equals(yesno.toLowerCase())) {
                 int ok = dao.deleteData(name, TABLENAME);
                 System.out.println(ok + "件削除しました。");
+            }
+        } catch (SQLException se) {
+            se.printStackTrace();
+        }
+    }
+
+    /**
+     * 一覧表示
+     */
+    static void listAll() {
+        ArrayList<PmemoEntity> pmemoList = new ArrayList<PmemoEntity>();
+
+        System.out.println("-- name -- + - id - + ------ Email  ------ + --- password --- + ---------- other ---------- + ------ date -------");
+        try {
+            pmemoList = dao.listAll(TABLENAME);
+            for (PmemoEntity item : pmemoList) {
+                System.out.printf("%10s | ", item.getName());
+                System.out.printf("%6s | ", item.getId());
+                System.out.printf("%20s | ", item.getEmail());
+                System.out.printf("%16s | ", item.getPassword());
+                System.out.printf("%18s | ", item.getOther());
+                System.out.printf("%14s", item.getCreated_at());
+                System.out.println();
             }
         } catch (SQLException se) {
             se.printStackTrace();
