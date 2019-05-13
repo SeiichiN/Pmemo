@@ -6,7 +6,7 @@ import java.sql.*;
 import java.util.*;
 
 /**
- * Pmemo ãƒ¡ã‚¤ãƒ³
+ * Pmemo ƒƒCƒ“
  */
 public class Pmemo {
 
@@ -36,34 +36,34 @@ public class Pmemo {
                 int menuNo = menu();
                 switch (menuNo) {
                 case 1:
-                    // pmemo ã«ãƒ‡ãƒ¼ã‚¿ã‚’ã‚»ãƒƒãƒˆã™ã‚‹
+                    // pmemo ‚Éƒf[ƒ^‚ğƒZƒbƒg‚·‚é
                     setPmemo();
                     if (dao.insertData(pmemo, TABLENAME) > 0) {
-                        System.out.println("ãƒ‡ãƒ¼ã‚¿ã®è¿½åŠ ãŒã§ãã¾ã—ãŸã€‚");
+                        System.out.println("ƒf[ƒ^‚Ì’Ç‰Á‚ª‚Å‚«‚Ü‚µ‚½B");
                     } else {
-                        System.out.println("ãƒ‡ãƒ¼ã‚¿ã®è¿½åŠ ã«å¤±æ•—ã—ã¾ã—ãŸã€‚");
+                        System.out.println("ƒf[ƒ^‚Ì’Ç‰Á‚É¸”s‚µ‚Ü‚µ‚½B");
                     }
                     break;
                 case 2:
                     String thisName = printOneData(selectName());
-                    int editNo = Integer.parseInt(getUserInput("ä¿®æ­£ã—ãŸã„é …ç›®ç•ªå· > "));
-                    String newData = getUserInput("æ–°ã—ã„ãƒ‡ãƒ¼ã‚¿> ");
+                    int editNo = Integer.parseInt(getUserInput("C³‚µ‚½‚¢€–Ú”Ô† > "));
+                    String newData = getUserInput("V‚µ‚¢ƒf[ƒ^> ");
                     if (dao.updateData(thisName, editNo, newData, TABLENAME) > 0) {
-                        System.out.println("æ›´æ–°ã—ã¾ã—ãŸã€‚");
+                        System.out.println("XV‚µ‚Ü‚µ‚½B");
                     } else {
-                        System.out.println("æ›´æ–°ã§ãã¾ã›ã‚“ã§ã—ãŸã€‚");
+                        System.out.println("XV‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B");
                     }
                     break;
                 case 3:
-                    // ãƒ‡ãƒ¼ã‚¿ã®æ¤œç´¢
+                    // ƒf[ƒ^‚ÌŒŸõ
                     printOneData(selectName());
                     break;
                 case 4:
-                    // ãƒ‡ãƒ¼ã‚¿ã®å‰Šé™¤
+                    // ƒf[ƒ^‚Ìíœ
                     deleteData();
                     break;
                 case 5:
-                    // ãƒ‡ãƒ¼ã‚¿ã®ä¸€è¦§
+                    // ƒf[ƒ^‚Ìˆê——
                     break;
                 case 6:
                     closeConnect(conn);
@@ -91,21 +91,21 @@ public class Pmemo {
     }
 
     static int menu () {
-        System.out.println("\nå‡¦ç†ã‚’é¸ã‚“ã§ãã ã•ã„");
+        System.out.println("\nˆ—‚ğ‘I‚ñ‚Å‚­‚¾‚³‚¢");
         System.out.println("----------------------");
-        System.out.println("1) ãƒ‡ãƒ¼ã‚¿ã®å…¥åŠ›");
-        System.out.println("2) ãƒ‡ãƒ¼ã‚¿ã®ä¿®æ­£");
-        System.out.println("3) ãƒ‡ãƒ¼ã‚¿ã®æ¤œç´¢");
-        System.out.println("4) ãƒ‡ãƒ¼ã‚¿ã®å‰Šé™¤");
-        System.out.println("5) ãƒ‡ãƒ¼ã‚¿ã®ä¸€è¦§");
-        System.out.println("6) çµ‚äº†");
+        System.out.println("1) ƒf[ƒ^‚Ì“ü—Í");
+        System.out.println("2) ƒf[ƒ^‚ÌC³");
+        System.out.println("3) ƒf[ƒ^‚ÌŒŸõ");
+        System.out.println("4) ƒf[ƒ^‚Ìíœ");
+        System.out.println("5) ƒf[ƒ^‚Ìˆê——");
+        System.out.println("6) I—¹");
         System.out.println("----------------------");
         int no = 0;
         do {
             try {
-                no = Integer.parseInt(getUserInput("ç•ªå·ï¼Ÿ> "));
+                no = Integer.parseInt(getUserInput("”Ô†H> "));
             } catch (NumberFormatException ne) {
-                System.out.println("æ•°å­—ã‚’åŠè§’ã§å…¥åŠ›ã—ã¦ãã ã•ã„ã€‚");
+                System.out.println("”š‚ğ”¼Šp‚Å“ü—Í‚µ‚Ä‚­‚¾‚³‚¢B");
             } finally {
             }
         } while (no < 1 || no > 6);
@@ -113,12 +113,12 @@ public class Pmemo {
     }
 
         /**
-     * ãƒ¦ãƒ¼ã‚¶ãƒ¼ã«æ–‡å­—åˆ—ã®å…¥åŠ›ã‚’ã—ã¦ã‚‚ã‚‰ã„ã€ãã‚Œã‚’è¿”ã™
+     * ƒ†[ƒU[‚É•¶š—ñ‚Ì“ü—Í‚ğ‚µ‚Ä‚à‚ç‚¢A‚»‚ê‚ğ•Ô‚·
      * 
-     * @param: prompt -- ãƒ¦ãƒ¼ã‚¶ãƒ¼ã«è¡¨ç¤ºã™ã‚‹æ–‡å­—åˆ—
-     *                   ï¼ˆä¾‹ï¼‰"å…¥åŠ› > "
+     * @param: prompt -- ƒ†[ƒU[‚É•\¦‚·‚é•¶š—ñ
+     *                   i—áj"“ü—Í > "
      *
-     * @raturn: String -- åŠè§’è‹±æ•°å­—ã‚’æƒ³å®šã€‚æ—¥æœ¬èªã®å ´åˆã¯ã©ã†ãªã‚‹ã‹ï¼Ÿ
+     * @raturn: String -- ”¼Šp‰p”š‚ğ‘z’èB“ú–{Œê‚Ìê‡‚Í‚Ç‚¤‚È‚é‚©H
      */
     static String getUserInput (String prompt) {
         String inputLine = null;
@@ -135,38 +135,38 @@ public class Pmemo {
     }
 
     /**
-     * ãƒ‡ãƒ¼ã‚¿ã‚’å…¥åŠ›ã™ã‚‹
-     *    staticå¤‰æ•°ã® pmemo ã«ãƒ‡ãƒ¼ã‚¿ã‚’å…¥åŠ›ã€‚
+     * ƒf[ƒ^‚ğ“ü—Í‚·‚é
+     *    static•Ï”‚Ì pmemo ‚Éƒf[ƒ^‚ğ“ü—ÍB
      */
     static void setPmemo() {
-        System.out.println("----- ãƒ‡ãƒ¼ã‚¿ã®å…¥åŠ› -----");
-        System.out.println("*å°ã¯å¿…é ˆé …ç›®ã§ã™ã€‚");
+        System.out.println("----- ƒf[ƒ^‚Ì“ü—Í -----");
+        System.out.println("*ˆó‚Í•K{€–Ú‚Å‚·B");
         String name = null;
         do {
-            name = getUserInput("*nameï¼ˆç™»éŒ²åï¼‰> ");
+            name = getUserInput("*namei“o˜^–¼j> ");
             if (name != null) {pmemo.setName(name); }
         } while (name == null);
-        String id = getUserInput(" idï¼ˆã‚‚ã—ã‚ã‚‹ãªã‚‰ï¼‰> ");
+        String id = getUserInput(" idi‚à‚µ‚ ‚é‚È‚çj> ");
         if (id != null) { pmemo.setId(id); } else { pmemo.setId("-");}
         String email = null;
         do {
-            email = getUserInput("*Emailï¼ˆç™»éŒ²ãƒ¡ãƒ¼ãƒ«ã‚¢ãƒ‰ãƒ¬ã‚¹ï¼‰> ");
+            email = getUserInput("*Emaili“o˜^ƒ[ƒ‹ƒAƒhƒŒƒXj> ");
             if (email != null) { pmemo.setEmail(email); }
         } while (email == null);
         String password = null;
         do {
-            password = getUserInput("*passwordï¼ˆç™»éŒ²ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰ï¼‰> ");
+            password = getUserInput("*passwordi“o˜^ƒpƒXƒ[ƒhj> ");
             if (password != null) { pmemo.setPassword(password); }
         } while (password == null);
-        String other = getUserInput("otherï¼ˆãƒ¡ãƒ¢ï¼‰> ");
+        String other = getUserInput("otheriƒƒ‚j> ");
         if (other != null) { pmemo.setOther(other); } else { pmemo.setOther("-");}
     }
 
     /**
-     * ãƒ‡ãƒ¼ã‚¿ã‚’ name ã§é¸æŠã™ã‚‹
+     * ƒf[ƒ^‚ğ name ‚Å‘I‘ğ‚·‚é
      */
     static String selectName() {
-        System.out.println("é¸æŠã™ã‚‹ãƒ‡ãƒ¼ã‚¿ã‚’ name ã§æŒ‡å®šã—ã¦ãã ã•ã„ã€‚ï¼ˆhelp: ä¸€è¦§ï¼‰");
+        System.out.println("‘I‘ğ‚·‚éƒf[ƒ^‚ğ name ‚Åw’è‚µ‚Ä‚­‚¾‚³‚¢Bihelp: ˆê——j");
         String name = null;
         do {
             name = getUserInput("name > ");
@@ -189,7 +189,7 @@ public class Pmemo {
     }
 
     /**
-     * ãƒ¦ãƒ¼ã‚¶ã«ã²ã¨ã¤ã®ãƒ‡ãƒ¼ã‚¿ã‚’é¸æŠã•ã›ã¦ã€ãã‚Œã‚’è¡¨ç¤ºã™ã‚‹
+     * ƒ†[ƒU‚É‚Ğ‚Æ‚Â‚Ìƒf[ƒ^‚ğ‘I‘ğ‚³‚¹‚ÄA‚»‚ê‚ğ•\¦‚·‚é
      */
     static String printOneData(String hereIt) throws SQLException {
         // String hereIt = selectName();
@@ -198,7 +198,7 @@ public class Pmemo {
             System.out.println("===================================");
             System.out.println(pmemo.toString());
             System.out.println("===================================");
-            System.out.println("Enterã‚­ãƒ¼ã‚’æŠ¼ã—ã¦ãã ã•ã„...");
+            System.out.println("EnterƒL[‚ğ‰Ÿ‚µ‚Ä‚­‚¾‚³‚¢...");
             try {
                 int c = 0;
                 do {
@@ -213,18 +213,18 @@ public class Pmemo {
     }
 
     /**
-     * å‰Šé™¤å‡¦ç†
+     * íœˆ—
      */
     static void deleteData() {
         try {
-            System.out.println("\n===============|| å‰Šé™¤å‡¦ç† ||==============");
+            System.out.println("\n===============|| íœˆ— ||==============");
             String name = selectName();
-            System.out.println("\nå‰Šé™¤å¯¾è±¡ã¯ã“ã®ãƒ‡ãƒ¼ã‚¿ã§ã™ã€‚");
+            System.out.println("\níœ‘ÎÛ‚Í‚±‚Ìƒf[ƒ^‚Å‚·B");
             printOneData(name);
-            String yesno = getUserInput("å‰Šé™¤ã—ã¦ã‚‚ã‚ˆã‚ã—ã„ã§ã™ã‹ï¼Ÿ (y/n) > ");
+            String yesno = getUserInput("íœ‚µ‚Ä‚à‚æ‚ë‚µ‚¢‚Å‚·‚©H (y/n) > ");
             if ("y".equals(yesno.toLowerCase())) {
                 int ok = dao.deleteData(name, TABLENAME);
-                System.out.println(ok + "ä»¶å‰Šé™¤ã—ã¾ã—ãŸã€‚");
+                System.out.println(ok + "Œíœ‚µ‚Ü‚µ‚½B");
             }
         } catch (SQLException se) {
             se.printStackTrace();
