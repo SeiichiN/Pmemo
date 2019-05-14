@@ -52,7 +52,7 @@ public class Pmemo {
                     // データの検索
                     String thisData = selectName();
                     if (!("0".equals(thisData))) {
-                        printOneData(selectName());
+                        printOneData(thisData);
                     }
                     break;
                 case 4:
@@ -204,8 +204,8 @@ public class Pmemo {
         String name = null;
         do {
             name = gi.get("name (list : 0)> ");
-            ArrayList<String> nameList = new ArrayList<>();
             if ("list".equals(name)) {
+                ArrayList<String> nameList = new ArrayList<>();
                 try {
                     nameList = dao.nameList(TABLENAME);
                 } catch (SQLException se) {
@@ -215,7 +215,7 @@ public class Pmemo {
                 int i = 0;
                 System.out.println("------------< LIST >------------");
                 for (String nameOne : nameList) {
-                    System.out.printf("%20s", nameOne);
+                    System.out.printf("%-20s", nameOne);
                     i++;
                     if (i % 3 == 0) { System.out.println(); }
                 }
@@ -268,18 +268,40 @@ public class Pmemo {
      */
     static void listAll() {
         ArrayList<PmemoEntity> pmemoList = new ArrayList<PmemoEntity>();
+        ZenHanFormat zhf = new ZenHanFormat();
 
-        System.out.println("-- name -- + - id - + ------ Email  ------ + --- password --- + ---------- other ---------- + ------ date -------");
+        String headline = "-- name -- + - id - + ------ Email  ------ + --- password --- + ----- other ------ + ------ date -------";
+        System.out.println(headline);
         try {
             pmemoList = dao.listAll(TABLENAME);
+            int i = 0;
             for (PmemoEntity item : pmemoList) {
-                System.out.printf("%10s | ", item.getName());
-                System.out.printf("%6s | ", item.getId());
-                System.out.printf("%20s | ", item.getEmail());
-                System.out.printf("%16s | ", item.getPassword());
-                System.out.printf("%18s | ", item.getOther());
+                i++;
+                /*
+                System.out.printf("%-10s | ", (item.getName() + "          ").substring(0, 10));
+                System.out.printf("%-6s | ", (item.getId() + "      ").substring(0, 6));
+                System.out.printf("%-20s | ", (item.getEmail() + "                    ").substring(0, 20));
+                System.out.printf("%-16s | ", (item.getPassword() + "                ").substring(0, 16));
+                System.out.printf("%-18s | ", (item.getOther() + "                   ").substring(0, 18));
                 System.out.printf("%14s", item.getCreated_at());
+                */
+                String itemName = zhf.zhFormat((item.getName() + "          "), 10);
+                String itemId = zhf.zhFormat((item.getId() + "      "), 6);
+                String itemEmail = zhf.zhFormat((item.getEmail() + "                    "), 20);
+                String itemPassword = zhf.zhFormat((item.getPassword() + "                "), 16);
+                String itemOther = zhf.zhFormat((item.getOther() + "                  "), 18);
+                System.out.print(itemName + " | ");
+                System.out.print(itemId + " | ");
+                System.out.print(itemEmail + " | ");
+                System.out.print(itemPassword + " | ");
+                System.out.print(itemOther + " | ");
+                System.out.printf("%14s", item.getCreated_at());
+                
                 System.out.println();
+                if (i % 30 == 0) {
+                    waitEnter();
+                    System.out.println(headline);
+                }
             }
         } catch (SQLException se) {
             se.printStackTrace();
