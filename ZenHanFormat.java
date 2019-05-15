@@ -7,9 +7,13 @@ public class ZenHanFormat {
 
     public String zhFormat (String target, int length) {
         int byteDiff = (getByteLength(target, Charset.forName("UTF-8")) - target.length()) / 2;
-        System.out.println("byteDiff= " + byteDiff + " target= " + target + "length= " + length);
         int size = length - byteDiff;
+        // size‚ªƒ}ƒCƒiƒX‚Ì‚Æ‚«‚Á‚ÄA‚ ‚é‚ñ‚â‚ë‚©H  added by Seiichi Nukayama
         if (size < 0) { size = size * -1; }
+        // ‚à‚µ target•¶š—ñ‚ª size ‚æ‚è‘å‚«‚¯‚ê‚ÎAØ‚è‹l‚ß‚é  added by Seiichi Nukayama
+        if (size < target.length()) {
+            target = target.substring(0, size);
+        }
         return String.format("%-" + size + "s", target);
     }
 
@@ -19,6 +23,6 @@ public class ZenHanFormat {
 }
 
 /**
- * [Java]åŠè§’ãƒ»å…¨è§’æ··åˆã§ã‚‚æ–‡å­—ä½ç½®ã‚’åˆã‚ã›ã‚‹
+ * [Java]”¼ŠpE‘SŠp¬‡‚Å‚à•¶šˆÊ’u‚ğ‡‚í‚¹‚é
  *   https://qiita.com/Lilly008000/items/00876d8c61ce36bd5fba
  */
