@@ -13,7 +13,7 @@ public class PmemoDao {
         this.conn = connect;
     }
 
-    // memoƒe[ƒuƒ‹‚É1Œ•ª‚Ìƒf[ƒ^‚ğ‘}“ü‚·‚é
+    // memoãƒ†ãƒ¼ãƒ–ãƒ«ã«1ä»¶åˆ†ã®ãƒ‡ãƒ¼ã‚¿ã‚’æŒ¿å…¥ã™ã‚‹
     public int insertData(PmemoEntity pmemo, String tableName) throws SQLException {
         PreparedStatement stmt = null;
 
@@ -36,14 +36,14 @@ public class PmemoDao {
     }
 
     /**
-     * ƒf[ƒ^‚ÌC³
+     * ãƒ‡ãƒ¼ã‚¿ã®ä¿®æ­£
      * @param:
-     *   String name -- C³‚·‚éƒf[ƒ^‚ÌƒL[
-     *   int editNo  -- C³‚·‚éƒf[ƒ^‚Ì”Ô† 1..5
-     *   String newText -- V‚µ‚¢ƒf[ƒ^
-     *   String tableName -- ƒe[ƒuƒ‹–¼
+     *   String name -- ä¿®æ­£ã™ã‚‹ãƒ‡ãƒ¼ã‚¿ã®ã‚­ãƒ¼
+     *   int editNo  -- ä¿®æ­£ã™ã‚‹ãƒ‡ãƒ¼ã‚¿ã®ç•ªå· 1..5
+     *   String newText -- æ–°ã—ã„ãƒ‡ãƒ¼ã‚¿
+     *   String tableName -- ãƒ†ãƒ¼ãƒ–ãƒ«å
      * @return:
-     *   int stmt.executeUpdate -- SQL‚ğÀs‚µ‚½s”i0:¸”s, 1:‚PsC³j
+     *   int stmt.executeUpdate -- SQLã‚’å®Ÿè¡Œã—ãŸè¡Œæ•°ï¼ˆ0:å¤±æ•—, 1:ï¼‘è¡Œä¿®æ­£ï¼‰
      */
     public int updateData(String name, int editNo, String newText, String tableName)
         throws SQLException {
@@ -67,7 +67,7 @@ public class PmemoDao {
         
     }
 
-    // name ‚ğƒL[‚É‚µ‚Ä memoƒe[ƒuƒ‹‚©‚çƒf[ƒ^‚ğ“Ç‚İ‚Ş
+    // name ã‚’ã‚­ãƒ¼ã«ã—ã¦ memoãƒ†ãƒ¼ãƒ–ãƒ«ã‹ã‚‰ãƒ‡ãƒ¼ã‚¿ã‚’èª­ã¿è¾¼ã‚€
     public PmemoEntity selectOne (String name, String tableName) throws SQLException {
         PreparedStatement stmt = null;
         ResultSet result = null;
@@ -101,7 +101,7 @@ public class PmemoDao {
         }
     }
 
-    // name ‚Ìˆê——•\¦
+    // name ã®ä¸€è¦§è¡¨ç¤º
     public ArrayList<String> nameList (String tableName) throws SQLException {
         PreparedStatement stmt = null;
         ResultSet result = null;
@@ -127,7 +127,7 @@ public class PmemoDao {
         }
     }
 
-    // íœˆ—
+    // å‰Šé™¤å‡¦ç†
     public int deleteData (String name, String tableName) throws SQLException {
         PreparedStatement stmt = null;
         int result = 0;
@@ -144,7 +144,7 @@ public class PmemoDao {
         }
     }
 
-    // ˆê——•\¦
+    // ä¸€è¦§è¡¨ç¤º
     public ArrayList<PmemoEntity> listAll (String tableName) throws SQLException {
         PreparedStatement stmt = null;
         ResultSet result = null;
