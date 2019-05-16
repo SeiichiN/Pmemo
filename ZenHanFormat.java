@@ -7,7 +7,7 @@ public class ZenHanFormat {
 
     public String zhFormat (String target, int length) {
 
-        // getByteLength -- utf-8‚Ìê‡Aˆê•¶š3ƒoƒCƒg‚Æ‚È‚éB
+        // getByteLength -- utf-8ã®å ´åˆã€ä¸€æ–‡å­—3ãƒã‚¤ãƒˆã¨ãªã‚‹ã€‚
         int byteDiff = (getByteLength(target, Charset.forName("UTF-8")) - target.length()) / 2;
         int byteNum = getByteLength(target, Charset.forName("UTF-8"));
         // System.out.println("target.length= " + target.length());
@@ -26,10 +26,10 @@ public class ZenHanFormat {
         } else {
             returnText = String.format("%-" + length + "s", target);
         }
-        // size‚ªƒ}ƒCƒiƒX‚Ì‚Æ‚«‚Á‚ÄA‚ ‚é‚ñ‚â‚ë‚©H  added by Seiichi Nukayama
+        // sizeãŒãƒã‚¤ãƒŠã‚¹ã®ã¨ãã£ã¦ã€ã‚ã‚‹ã‚“ã‚„ã‚ã‹ï¼Ÿ  added by Seiichi Nukayama
         // if (size < 0) { size = size * -1; }
         // if (size == 0) { size = 1; }
-        // ‚à‚µ target•¶š—ñ‚ª size ‚æ‚è‘å‚«‚¯‚ê‚ÎAØ‚è‹l‚ß‚é  added by Seiichi Nukayama
+        // ã‚‚ã— targetæ–‡å­—åˆ—ãŒ size ã‚ˆã‚Šå¤§ãã‘ã‚Œã°ã€åˆ‡ã‚Šè©°ã‚ã‚‹  added by Seiichi Nukayama
         // if (size < target.length()) {
         //     target = target.substring(0, size);
         // }
@@ -41,7 +41,7 @@ public class ZenHanFormat {
     }
 
     public static void main (String [] args) {
-        String title = "123456’†R›";
+        String title = "123456ä¸­å±±å¯º";
         // String title = "Okinawa Times";
         ZenHanFormat zhf = new ZenHanFormat();
         String text = zhf.zhFormat (title, 10);
@@ -50,6 +50,6 @@ public class ZenHanFormat {
 }
 
 /**
- * [Java]”¼ŠpE‘SŠp¬‡‚Å‚à•¶šˆÊ’u‚ğ‡‚í‚¹‚é
+ * [Java]åŠè§’ãƒ»å…¨è§’æ··åˆã§ã‚‚æ–‡å­—ä½ç½®ã‚’åˆã‚ã›ã‚‹
  *   https://qiita.com/Lilly008000/items/00876d8c61ce36bd5fba
  */

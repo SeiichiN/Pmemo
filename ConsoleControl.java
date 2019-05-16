@@ -1,10 +1,10 @@
 /**
- * Java‚ÅC,C++‚Ìsystem("cls");‚Æ“¯“™‚Ì‹@”\‚ğÀ‘•‚·‚é
+ * Javaã§C,C++ã®system("cls");ã¨åŒç­‰ã®æ©Ÿèƒ½ã‚’å®Ÿè£…ã™ã‚‹
  *   https://qiita.com/Bim/items/c0b5ab527d105bc63d6b
  *
- * Windows ‚Ìê‡
+ * Windows ã®å ´åˆ
  *   var cc = new ConsoleControl("cmd", "/c", "cls");
- * Linux ‚Ìê‡
+ * Linux ã®å ´åˆ
  *   var cc = new ConsoleControl("/bin/bash", "-c", "clear");
  */
 package com.billies_works;
@@ -15,26 +15,26 @@ public class ConsoleControl {
     private ProcessBuilder pb;
 
     /**
-     * ConsoleControlƒNƒ‰ƒX‚ÌƒRƒ“ƒXƒgƒ‰ƒNƒ^‚Å‚·B
-     * w’è‚µ‚½ƒRƒ}ƒ“ƒh‚ğÀs‚·‚éV‚µ‚¢ƒvƒƒZƒX‚ğÀs‚·‚éŠÂ‹«‚ğ\’z‚µ‚Ü‚·B
-     * @param command Às‚·‚éƒRƒ}ƒ“ƒh
+     * ConsoleControlã‚¯ãƒ©ã‚¹ã®ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ã§ã™ã€‚
+     * æŒ‡å®šã—ãŸã‚³ãƒãƒ³ãƒ‰ã‚’å®Ÿè¡Œã™ã‚‹æ–°ã—ã„ãƒ—ãƒ­ã‚»ã‚¹ã‚’å®Ÿè¡Œã™ã‚‹ç’°å¢ƒã‚’æ§‹ç¯‰ã—ã¾ã™ã€‚
+     * @param command å®Ÿè¡Œã™ã‚‹ã‚³ãƒãƒ³ãƒ‰
      */
     public ConsoleControl(String... command) {
         pb = new ProcessBuilder(command);
     }
 
     /**
-     * ƒRƒ}ƒ“ƒhƒvƒƒ“ƒvƒg‚Ì‰æ–Ê‚ğƒNƒŠƒA‚·‚éƒƒ\ƒbƒhB
+     * ã‚³ãƒãƒ³ãƒ‰ãƒ—ãƒ­ãƒ³ãƒ—ãƒˆã®ç”»é¢ã‚’ã‚¯ãƒªã‚¢ã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰ã€‚
      */
     public void cls() throws IOException, InterruptedException {
         pb.inheritIO().start().waitFor();
         /*
-         * // ProcesserBuild‚ÌƒRƒ“ƒXƒgƒ‰ƒNƒ^ˆø”‚Åw’è‚µ‚½ŠO•”ƒRƒ}ƒ“ƒh‚ğ
-         * // ƒRƒ}ƒ“ƒhƒvƒƒ“ƒvƒg‚ÅÀs‚Å‚«‚é‚æ‚¤‚É•ÏŠ·
+         * // ProcesserBuildã®ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿å¼•æ•°ã§æŒ‡å®šã—ãŸå¤–éƒ¨ã‚³ãƒãƒ³ãƒ‰ã‚’
+         * // ã‚³ãƒãƒ³ãƒ‰ãƒ—ãƒ­ãƒ³ãƒ—ãƒˆã§å®Ÿè¡Œã§ãã‚‹ã‚ˆã†ã«å¤‰æ›
          * ProcessBuilder pbInheritIO = pb.inheritIO();
-         * // ŠO•”ƒRƒ}ƒ“ƒh‚ÅÀs
+         * // å¤–éƒ¨ã‚³ãƒãƒ³ãƒ‰ã§å®Ÿè¡Œ
          * Process pro = pbInheritIO.start();
-         * // ‘¼‚ÌƒXƒŒƒbƒh‚Å“®‚¢‚Ä‚¢‚éƒvƒƒZƒX‚ªI‚í‚é‚Ü‚Å‘Ò‹@
+         * // ä»–ã®ã‚¹ãƒ¬ãƒƒãƒ‰ã§å‹•ã„ã¦ã„ã‚‹ãƒ—ãƒ­ã‚»ã‚¹ãŒçµ‚ã‚ã‚‹ã¾ã§å¾…æ©Ÿ
          * pro.waitFor();
          */
     }
