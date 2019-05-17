@@ -10,17 +10,23 @@ public class ZenHanFormat {
         // getByteLength -- utf-8の場合、一文字3バイトとなる。
         int byteDiff = (getByteLength(target, Charset.forName("UTF-8")) - target.length()) / 2;
         int byteNum = getByteLength(target, Charset.forName("UTF-8"));
-        // System.out.println("target.length= " + target.length());
-        /*
-        System.out.println("byteDiff= " + byteDiff);
-        System.out.println("byteDiff/2= " +( byteDiff / 2));
-        System.out.println("byteDiff%2= " + (byteDiff % 2));
-        */
 
+        // 全角以外の文字数
+        int hankakuNum = target.length() - byteDiff;
+        // 全角文字に許されるスペース
+        int ZenSpace = (length - hankakuNum) / 2;
+        // length を設定しなおす
+        int newLength = hankakuNum + ZenSpace;
+        if (newLength <= 10) { newLength = length; }
+
+        String returnText = String.format("%-" + newLength + "s", target);
+
+        /*
         String returnText = null;
         // int size = length - byteDiff;  // org
         if ((target.length() + byteDiff) >= length) {
             length = length - byteDiff;  // ((byteDiff / 2); // + (byteDiff % 2)); 
+            System.out.println("length= " + length);
         //    System.out.println("%." + length + "s : " + target );
             returnText = String.format("%" + length + "s", target);
         } else {
@@ -33,6 +39,7 @@ public class ZenHanFormat {
         // if (size < target.length()) {
         //     target = target.substring(0, size);
         // }
+        */
         return returnText;
     }
 
@@ -41,7 +48,7 @@ public class ZenHanFormat {
     }
 
     public static void main (String [] args) {
-        String title = "123456中山寺";
+        String title = "大阪市立図書館";
         // String title = "Okinawa Times";
         ZenHanFormat zhf = new ZenHanFormat();
         String text = zhf.zhFormat (title, 10);
