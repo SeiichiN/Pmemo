@@ -25,7 +25,7 @@ public class ZenHanFormat {
         if (byteDiff == 0 && newLength != length) { newLength = length; }
         if ((hankakuNum == 0) && (byteDiff * 2 < length)) {
              newLength = length / 2;
-             target = target + "　　　　　　　　　　";
+             target = target + StringUtils.repeat("　", newLength - byteDiff);
         }
         // target文字列が newLength よりも大きい場合、切り捨てる
         if (target.length() > newLength) {
