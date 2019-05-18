@@ -8,38 +8,35 @@ public class ZenHanFormat {
     public String zhFormat (String target, int length) {
 
         // getByteLength -- utf-8の場合、一文字3バイトとなる。
+        // byteDiff -- 全角文字数
         int byteDiff = (getByteLength(target, Charset.forName("UTF-8")) - target.length()) / 2;
-        int byteNum = getByteLength(target, Charset.forName("UTF-8"));
 
         // 全角以外の文字数
         int hankakuNum = target.length() - byteDiff;
+        // System.out.println("hankakuNum=" + hankakuNum + " byteDiff= " + byteDiff);
+
         // 全角文字に許されるスペース
-        int ZenSpace = (length - hankakuNum) / 2;
+        int ZenSpace = 0;
+        if (byteDiff > 0) {
+            ZenSpace = (length - hankakuNum) / 2;
+        }
         // length を設定しなおす
         int newLength = hankakuNum + ZenSpace;
-        if (newLength <= 10) { newLength = length; }
+        if (byteDiff == 0 && newLength != length) { newLength = length; }
+        if ((hankakuNum == 0) && (byteDiff * 2 < length)) {
+             newLength = length / 2;
+             target = target + "　　　　　　　　　　";
+        }
+        // target文字列が newLength よりも大きい場合、切り捨てる
+        if (target.length() > newLength) {
+            target = target.substring(0, newLength);
+        }
+        
+        // System.out.println("newLength= " + newLength);
+        // System.out.println("target= " + target);
 
         String returnText = String.format("%-" + newLength + "s", target);
 
-        /*
-        String returnText = null;
-        // int size = length - byteDiff;  // org
-        if ((target.length() + byteDiff) >= length) {
-            length = length - byteDiff;  // ((byteDiff / 2); // + (byteDiff % 2)); 
-            System.out.println("length= " + length);
-        //    System.out.println("%." + length + "s : " + target );
-            returnText = String.format("%" + length + "s", target);
-        } else {
-            returnText = String.format("%-" + length + "s", target);
-        }
-        // sizeがマイナスのときって、あるんやろか？  added by Seiichi Nukayama
-        // if (size < 0) { size = size * -1; }
-        // if (size == 0) { size = 1; }
-        // もし target文字列が size より大きければ、切り詰める  added by Seiichi Nukayama
-        // if (size < target.length()) {
-        //     target = target.substring(0, size);
-        // }
-        */
         return returnText;
     }
 
@@ -48,11 +45,11 @@ public class ZenHanFormat {
     }
 
     public static void main (String [] args) {
-        String title = "大阪市立図書館";
+        String title = "はてな";
         // String title = "Okinawa Times";
         ZenHanFormat zhf = new ZenHanFormat();
         String text = zhf.zhFormat (title, 10);
-        System.out.println (text);
+        System.out.println (text + " | ");
     }
 }
 
