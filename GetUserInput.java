@@ -1,13 +1,13 @@
-// GetUserInput.java ???????????????????????
+// GetUserInput.java ユーザーからの入力を受け取る
 package com.billies_works;
 
 import java.io.*;
 
 /**
-* @param: prompt -- ????????????
-*                   ???"?? > "
+* @param: prompt -- 画面に表示する文字列
+*                   例） 入力>
 *
-* @raturn: String -- ??????????????????????
+* @raturn: String -- ユーザーが入力した文字列
 */
 public class GetUserInput {
     public String get (String prompt) {
@@ -21,6 +21,6 @@ public class GetUserInput {
         } catch (IOException e) {
             System.out.println ("IOException: " + e);
         }
-        return inputLine.toLowerCase ();
+        return inputLine;
     }
 }

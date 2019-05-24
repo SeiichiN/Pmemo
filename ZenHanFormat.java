@@ -2,58 +2,70 @@
 package com.billies_works;
 
 import java.nio.charset.*;
+import java.util.*;
 
 public class ZenHanFormat {
 
     public String zhFormat (String target, int length) {
 
-        // getByteLength -- utf-8‚Ìê‡Aˆê•¶š3ƒoƒCƒg‚Æ‚È‚éB
-        // byteDiff -- ‘SŠp•¶š”
+        // getByteLength -- utf-8ã®å ´åˆã€ä¸€æ–‡å­—3ãƒã‚¤ãƒˆã¨ãªã‚‹ã€‚
+        // byteDiff -- å…¨è§’æ–‡å­—æ•°
         int byteDiff = (getByteLength(target, Charset.forName("UTF-8")) - target.length()) / 2;
 
-        // ‘SŠpˆÈŠO‚Ì•¶š”
+        // å…¨è§’ä»¥å¤–ã®æ–‡å­—æ•°
         int hankakuNum = target.length() - byteDiff;
         // System.out.println("hankakuNum=" + hankakuNum + " byteDiff= " + byteDiff);
 
-        // ‘SŠp•¶š‚É‹–‚³‚ê‚éƒXƒy[ƒX
+        // ZenSpace -- å…¨è§’æ–‡å­—ã«è¨±ã•ã‚Œã‚‹ã‚¹ãƒšãƒ¼ã‚¹
         int ZenSpace = 0;
+        // newLength -- å…¨è§’æ–‡å­—ã§è€ƒãˆãŸå ´åˆã€lengthãŒ10ã ã¨ã™ã‚‹ã¨ã€5ã«ãªã‚‰ãªã‘ã‚Œã°ãªã‚‰ãªã„
+        int newLength = length;
         if (byteDiff > 0) {
             ZenSpace = (length - hankakuNum) / 2;
-        }
-        // length ‚ğİ’è‚µ‚È‚¨‚·
-        int newLength = hankakuNum + ZenSpace;
-        if (byteDiff == 0 && newLength != length) { newLength = length; }
-        if ((hankakuNum == 0) && (byteDiff * 2 < length)) {
-             newLength = length / 2;
-             target = target + StringUtils.repeat("@", newLength - byteDiff);
-        }
-        // target•¶š—ñ‚ª newLength ‚æ‚è‚à‘å‚«‚¢ê‡AØ‚èÌ‚Ä‚é
-        if (target.length() > newLength) {
-            target = target.substring(0, newLength);
+            newLength = hankakuNum + ZenSpace;
         }
         
+        // realMojiNUm -- åŠè§’ã«æ›ç®—ã—ãŸæ–‡å­—æ•°ï¼ˆå…¨è§’ã‚’2æ–‡å­—ã¨ã‚«ã‚¦ãƒ³ãƒˆã—ã¦ï¼‰
+        int realMojiNum = target.length() + byteDiff;
+        String newTarget = target;
+        // realMojiNum ãŒ length ã‚ˆã‚Šã‚‚å°‘ãªã„å ´åˆã€åŠè§’ã‚¹ãƒšãƒ¼ã‚¹ã§åŸ‹ã‚ã‚‹
+        if (realMojiNum < length) {
+            newTarget = target + repeat(" ", (length - realMojiNum));
+        }
+        // targetæ–‡å­—åˆ—ãŒ newLength ã‚ˆã‚Šã‚‚å¤§ãã„å ´åˆã€åˆ‡ã‚Šæ¨ã¦ã‚‹
+        if (target.length() > newLength) {
+            newTarget = target.substring(0, newLength);
+        }
+
+        // System.out.println("length= " + length);
+        // System.out.println("byteDiff= " + byteDiff);
+        // System.out.println("hankakuNum= " + hankakuNum);
+        // System.out.println("ZenSpace= " + ZenSpace);
+        // System.out.println("realMojiNum= " + realMojiNum);
         // System.out.println("newLength= " + newLength);
-        // System.out.println("target= " + target);
 
-        String returnText = String.format("%-" + newLength + "s", target);
-
-        return returnText;
+        return newTarget;
     }
 
     private int getByteLength (String string, Charset charset) {
         return string.getBytes(charset).length;
     }
 
+    private String repeat (String str, int n) {
+        return String.join("", Collections.nCopies(n, str));
+    }
+
     public static void main (String [] args) {
-        String title = "‚Í‚Ä‚È";
+        String title = "ITã‚½ãƒªãƒ¥ãƒ¼ã‚·ãƒ§ãƒ³";
         // String title = "Okinawa Times";
         ZenHanFormat zhf = new ZenHanFormat();
-        String text = zhf.zhFormat (title, 10);
-        System.out.println (text + " | ");
+        String text = zhf.zhFormat (title, 20);
+        System.out.println ("123456789|123456789|");
+        System.out.println (text + "-|-");
     }
 }
 
 /**
- * [Java]”¼ŠpE‘SŠp¬‡‚Å‚à•¶šˆÊ’u‚ğ‡‚í‚¹‚é
+ * [Java]åŠè§’ãƒ»å…¨è§’æ··åˆã§ã‚‚æ–‡å­—ä½ç½®ã‚’åˆã‚ã›ã‚‹
  *   https://qiita.com/Lilly008000/items/00876d8c61ce36bd5fba
  */

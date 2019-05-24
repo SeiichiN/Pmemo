@@ -6,7 +6,7 @@ import java.sql.*;
 import java.util.*;
 
 /**
- * Pmemo ƒƒCƒ“
+ * Pmemo ãƒ¡ã‚¤ãƒ³
  */
 public class Pmemo {
 
@@ -29,6 +29,8 @@ public class Pmemo {
         final String CONNECTURL = confList.get("url");
         TABLENAME = confList.get("tablename");
 
+        // System.out.println(CONNECTURL);
+
         try {
             conn = DriverManager.getConnection(CONNECTURL, USERNAME, PASSWORD);
             dao = new PmemoDao(conn);
@@ -36,36 +38,39 @@ public class Pmemo {
             while(true) {
                 int menuNo = menu();
                 switch (menuNo) {
+                case 0:
+                    closeConnect(conn);
+                    System.exit(0);
+                    break;
                 case 1:
-                    // pmemo ‚Éƒf[ƒ^‚ğƒZƒbƒg‚·‚é
-                    setPmemo();
-                    if (dao.insertData(pmemo, TABLENAME) > 0) {
-                        System.out.println("ƒf[ƒ^‚Ì’Ç‰Á‚ª‚Å‚«‚Ü‚µ‚½B");
+                    // pmemo ã«ãƒ‡ãƒ¼ã‚¿ã‚’ã‚»ãƒƒãƒˆã™ã‚‹
+                    if (setPmemo()) {
+                        if (dao.insertData(pmemo, TABLENAME) > 0) {
+                            System.out.println("ãƒ‡ãƒ¼ã‚¿ã®è¿½åŠ ãŒã§ãã¾ã—ãŸã€‚");
+                        } else {
+                            System.out.println("ãƒ‡ãƒ¼ã‚¿ã®è¿½åŠ ã«å¤±æ•—ã—ã¾ã—ãŸã€‚");
+                        }
                     } else {
-                        System.out.println("ƒf[ƒ^‚Ì’Ç‰Á‚É¸”s‚µ‚Ü‚µ‚½B");
+                        System.out.println("ãƒ‡ãƒ¼ã‚¿å…¥åŠ›ã‚’ä¸­æ­¢ã—ã¾ã—ãŸã€‚");
                     }
                     break;
                 case 2:
                     editData();
                     break;
                 case 3:
-                    // ƒf[ƒ^‚ÌŒŸõ
+                    // ãƒ‡ãƒ¼ã‚¿ã®æ¤œç´¢
                     String thisData = selectName();
                     if (!("0".equals(thisData))) {
                         printOneData(thisData);
                     }
                     break;
                 case 4:
-                    // ƒf[ƒ^‚Ìíœ
+                    // ãƒ‡ãƒ¼ã‚¿ã®å‰Šé™¤
                     deleteData();
                     break;
                 case 5:
-                    // ƒf[ƒ^‚Ìˆê——
+                    // ãƒ‡ãƒ¼ã‚¿ã®ä¸€è¦§
                     listAll();
-                    break;
-                case 6:
-                    closeConnect(conn);
-                    System.exit(0);
                     break;
                 default:
                 }
@@ -89,12 +94,17 @@ public class Pmemo {
     }
 
     /**
-     * ‰æ–ÊƒNƒŠƒA
+     * ç”»é¢ã‚¯ãƒªã‚¢
      */
     static void clearConsole() {
         try {
-            // ConsoleControl cc = new ConsoleControl("/bin/bash", "-c", "clear");  // for Linux
-            ConsoleControl cc = new ConsoleControl("cmd", "/c", "cls");   // for Win
+            ConsoleControl cc = null;
+            PlatformUtils pu = new PlatformUtils();
+            if (pu.isLinux()) {
+                cc = new ConsoleControl("/bin/bash", "-c", "clear");  // for Linux
+            } else if (pu.isWindows()) {
+                cc = new ConsoleControl("cmd", "/c", "cls");   // for Win
+            }
             cc.cls();
         } catch (IOException ie) {
             ie.printStackTrace();
@@ -105,27 +115,27 @@ public class Pmemo {
     
     static int menu () {
         clearConsole();
-        System.out.println(">>>>> ƒpƒXƒ[ƒhŠÇ— Java”Å <<<<<");
-        System.out.println("ˆ—‚ğ‘I‚ñ‚Å‚­‚¾‚³‚¢");
+        System.out.println(">>>>> ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰ç®¡ç† Javaç‰ˆ <<<<<");
+        System.out.println("å‡¦ç†ã‚’é¸ã‚“ã§ãã ã•ã„");
         System.out.println("----------------------");
-        System.out.println("1) ƒf[ƒ^‚Ì“ü—Í");
-        System.out.println("2) ƒf[ƒ^‚ÌC³");
-        System.out.println("3) ƒf[ƒ^‚ÌŒŸõ");
-        System.out.println("4) ƒf[ƒ^‚Ìíœ");
-        System.out.println("5) ƒf[ƒ^‚Ìˆê——");
-        System.out.println("6) I—¹");
+        System.out.println("1) ãƒ‡ãƒ¼ã‚¿ã®å…¥åŠ›");
+        System.out.println("2) ãƒ‡ãƒ¼ã‚¿ã®ä¿®æ­£");
+        System.out.println("3) ãƒ‡ãƒ¼ã‚¿ã®æ¤œç´¢");
+        System.out.println("4) ãƒ‡ãƒ¼ã‚¿ã®å‰Šé™¤");
+        System.out.println("5) ãƒ‡ãƒ¼ã‚¿ã®ä¸€è¦§");
+        System.out.println("0) çµ‚äº†");
         System.out.println("----------------------");
         System.out.println("Copyright 2019 Seiichi Nukayama");
         System.out.println("http://www.billies-works.com/");
         int no = 0;
         do {
             try {
-                no = Integer.parseInt(gi.get("\n”Ô†H> "));
+                no = Integer.parseInt(gi.get("\nç•ªå·ï¼Ÿ> "));
             } catch (NumberFormatException ne) {
-                System.out.println("”š‚ğ”¼Šp‚Å“ü—Í‚µ‚Ä‚­‚¾‚³‚¢B");
+                System.out.println("æ•°å­—ã‚’åŠè§’ã§å…¥åŠ›ã—ã¦ãã ã•ã„ã€‚");
             } finally {
             }
-        } while (no < 1 || no > 6);
+        } while (no < 0 || no > 5);
         return no;
     }
 
@@ -133,7 +143,7 @@ public class Pmemo {
      *
      */
     static void waitEnter() {
-        System.out.println("EnterƒL[‚ğ‰Ÿ‚µ‚Ä‚­‚¾‚³‚¢...");
+        System.out.println("Enterã‚­ãƒ¼ã‚’æŠ¼ã—ã¦ãã ã•ã„...");
         try {
             int c = 0;
             do {
@@ -146,31 +156,43 @@ public class Pmemo {
     }
 
     /**
-     * ƒf[ƒ^‚ğ“ü—Í‚·‚é
-     *    static•Ï”‚Ì pmemo ‚Éƒf[ƒ^‚ğ“ü—ÍB
+     * ãƒ‡ãƒ¼ã‚¿ã‚’å…¥åŠ›ã™ã‚‹
+     *    staticå¤‰æ•°ã® pmemo ã«ãƒ‡ãƒ¼ã‚¿ã‚’å…¥åŠ›ã€‚
      */
-    static void setPmemo() {
-        System.out.println("----- ƒf[ƒ^‚Ì“ü—Í -----");
-        System.out.println("*ˆó‚Í•K{€–Ú‚Å‚·B");
+    static boolean setPmemo() {
+        System.out.println("----- ãƒ‡ãƒ¼ã‚¿ã®å…¥åŠ› -------------");
+        System.out.println("*å°ã¯å¿…é ˆé …ç›®ã§ã™ã€‚ (0:ä¸­æ­¢) ");
         String name = null;
         do {
-            name = gi.get("*namei“o˜^–¼j> ");
+            name = gi.get("*nameï¼ˆç™»éŒ²åï¼‰or '0'> ");
             if (name != null) {pmemo.setName(name); }
         } while (name == null);
-        String id = gi.get(" idi‚à‚µ‚ ‚é‚È‚çj> ");
-        if (id != null) { pmemo.setId(id); } else { pmemo.setId("-");}
-        String email = null;
-        do {
-            email = gi.get("*Emaili“o˜^ƒ[ƒ‹ƒAƒhƒŒƒXj> ");
-            if (email != null) { pmemo.setEmail(email); }
-        } while (email == null);
-        String password = null;
-        do {
-            password = gi.get("*passwordi“o˜^ƒpƒXƒ[ƒhj> ");
-            if (password != null) { pmemo.setPassword(password); }
-        } while (password == null);
-        String other = gi.get("otheriƒƒ‚j> ");
-        if (other != null) { pmemo.setOther(other); } else { pmemo.setOther("-");}
+        if (!("0".equals(name))) {
+            String id = gi.get(" idï¼ˆã‚‚ã—ã‚ã‚‹ãªã‚‰ï¼‰> ");
+            if (id != null) { pmemo.setId(id); } else { pmemo.setId("-");}
+            String email = null;
+            do {
+                email = gi.get("*Emailï¼ˆç™»éŒ²ãƒ¡ãƒ¼ãƒ«ã‚¢ãƒ‰ãƒ¬ã‚¹ï¼‰> ");
+                if (email != null) { pmemo.setEmail(email); }
+            } while (email == null);
+            String password = null;
+            do {
+                password = gi.get("*passwordï¼ˆç™»éŒ²ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰ï¼‰> ");
+                if (password != null) { pmemo.setPassword(password); }
+            } while (password == null);
+            String other = gi.get("otherï¼ˆãƒ¡ãƒ¢ï¼‰> ");
+            if (other != null) { pmemo.setOther(other); } else { pmemo.setOther("-");}
+            // ç¢ºèª
+            System.out.println("---------- ç¢ºèª ----------------");
+            System.out.println(pmemo.toString());
+            String yesno = gi.get("ã‚ˆã‚ã—ã„ã§ã™ã‹ï¼Ÿ (y/n) > ").toLowerCase();
+            if ("y".equals(yesno)) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        return false;
     }
 
     /**
@@ -179,16 +201,16 @@ public class Pmemo {
     static void editData() {
         try {
             String thisName = printOneData(selectName());
-            int editNo = Integer.parseInt(gi.get("C³‚µ‚½‚¢€–Ú”Ô†i0:æÁj > "));
+            int editNo = Integer.parseInt(gi.get("ä¿®æ­£ã—ãŸã„é …ç›®ç•ªå·ï¼ˆ0:å–æ¶ˆï¼‰ > "));
             if (editNo != 0) {
-                String newData = gi.get("V‚µ‚¢ƒf[ƒ^> ");
+                String newData = gi.get("æ–°ã—ã„ãƒ‡ãƒ¼ã‚¿> ");
                 if (dao.updateData(thisName, editNo, newData, TABLENAME) > 0) {
-                    System.out.println("XV‚µ‚Ü‚µ‚½B");
+                    System.out.println("æ›´æ–°ã—ã¾ã—ãŸã€‚");
                 } else {
-                    System.out.println("XV‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B");
+                    System.out.println("æ›´æ–°ã§ãã¾ã›ã‚“ã§ã—ãŸã€‚");
                 }
             } else {
-                System.out.println("æ‚èÁ‚µ‚Ü‚µ‚½B");
+                System.out.println("å–ã‚Šæ¶ˆã—ã¾ã—ãŸã€‚");
             }
         } catch (SQLException se) {
             se.printStackTrace();
@@ -196,11 +218,11 @@ public class Pmemo {
     }
 
     /**
-     * ƒf[ƒ^‚ğ name ‚Å‘I‘ğ‚·‚é
-     *     0 ‚ğ‘I‘ğ‚µ‚½‚Æ‚«‚ÍAˆ—‚ğ’†~‚·‚é‚±‚Æ‚É‚·‚éB
+     * ãƒ‡ãƒ¼ã‚¿ã‚’ name ã§é¸æŠã™ã‚‹
+     *     0 ã‚’é¸æŠã—ãŸã¨ãã¯ã€å‡¦ç†ã‚’ä¸­æ­¢ã™ã‚‹ã“ã¨ã«ã™ã‚‹ã€‚
      */
     static String selectName() {
-        System.out.println("‘I‘ğ‚·‚éƒf[ƒ^‚ğ name ‚Åw’è‚µ‚Ä‚­‚¾‚³‚¢Bilist: ˆê——  0:’†~j");
+        System.out.println("é¸æŠã™ã‚‹ãƒ‡ãƒ¼ã‚¿ã‚’ name ã§æŒ‡å®šã—ã¦ãã ã•ã„ã€‚ï¼ˆlist: ä¸€è¦§  0:ä¸­æ­¢ï¼‰");
         String name = null;
         do {
             name = gi.get("name (list : 0)> ");
@@ -214,8 +236,9 @@ public class Pmemo {
 
                 int i = 0;
                 System.out.println("------------< LIST >------------");
+                ZenHanFormat zhf = new ZenHanFormat();
                 for (String nameOne : nameList) {
-                    System.out.printf("%-20s", nameOne);
+                    System.out.printf(zhf.zhFormat(nameOne, 20));
                     i++;
                     if (i % 3 == 0) { System.out.println(); }
                 }
@@ -226,7 +249,7 @@ public class Pmemo {
     }
 
     /**
-     * ƒ†[ƒU‚É‚Ğ‚Æ‚Â‚Ìƒf[ƒ^‚ğ‘I‘ğ‚³‚¹‚ÄA‚»‚ê‚ğ•\¦‚·‚é
+     * ãƒ¦ãƒ¼ã‚¶ã«ã²ã¨ã¤ã®ãƒ‡ãƒ¼ã‚¿ã‚’é¸æŠã•ã›ã¦ã€ãã‚Œã‚’è¡¨ç¤ºã™ã‚‹
      */
     static String printOneData(String hereIt) throws SQLException {
         // String hereIt = selectName();
@@ -241,21 +264,21 @@ public class Pmemo {
     }
 
     /**
-     * íœˆ—
+     * å‰Šé™¤å‡¦ç†
      */
     static void deleteData() {
         try {
-            System.out.println("\n===============|| íœˆ— ||==============");
+            System.out.println("\n===============|| å‰Šé™¤å‡¦ç† ||==============");
             String name = selectName();
             if (!("0".equals(name))) {  
-                System.out.println("\níœ‘ÎÛ‚Í‚±‚Ìƒf[ƒ^‚Å‚·B");
+                System.out.println("\nå‰Šé™¤å¯¾è±¡ã¯ã“ã®ãƒ‡ãƒ¼ã‚¿ã§ã™ã€‚");
                 printOneData(name);
-                String yesno = gi.get("íœ‚µ‚Ä‚à‚æ‚ë‚µ‚¢‚Å‚·‚©H (y/n) > ");
+                String yesno = gi.get("å‰Šé™¤ã—ã¦ã‚‚ã‚ˆã‚ã—ã„ã§ã™ã‹ï¼Ÿ (y/n) > ");
                 if ("y".equals(yesno.toLowerCase())) {
                     int ok = dao.deleteData(name, TABLENAME);
-                    System.out.println(ok + "Œíœ‚µ‚Ü‚µ‚½B");
+                    System.out.println(ok + "ä»¶å‰Šé™¤ã—ã¾ã—ãŸã€‚");
                 } else {
-                    System.out.println("ˆ—‚ğ‚Æ‚è‚â‚ß‚Ü‚µ‚½B");
+                    System.out.println("å‡¦ç†ã‚’ã¨ã‚Šã‚„ã‚ã¾ã—ãŸã€‚");
                 }
             }
         } catch (SQLException se) {
@@ -264,7 +287,7 @@ public class Pmemo {
     }
 
     /**
-     * ˆê——•\¦
+     * ä¸€è¦§è¡¨ç¤º
      */
     static void listAll() {
         ArrayList<PmemoEntity> pmemoList = new ArrayList<PmemoEntity>();
