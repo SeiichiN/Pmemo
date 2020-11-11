@@ -1,0 +1,37 @@
+
+$ mysql -u root -p
+password:
+
+MariaDB [(none)]> GRANT ALL ON p_sample.* TO 'sasuke'@'localhost' IDENTIFIED BY 'sasuke';
+
+MariaDB [(none)]> quit;
+
+$ mysql -u root -p
+password:
+
+MariaDB [(none)]> create database p_sample default character set utf8 collate utf8_general_ci;
+
+MariaDB [(none)]> CREATE TABLE `memo` (
+                    `no` int(11) NOT NULL AUTO_INCREMENT,
+                    `name` varchar(255) NOT NULL,
+                    `id` varchar(255) DEFAULT NULL,
+                    `email` varchar(255) DEFAULT NULL,
+                    `password` varchar(255) DEFAULT NULL,
+                    `other` varchar(255) DEFAULT NULL,
+                    `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+                    PRIMARY KEY (`no`)
+                  ) ENGINE=InnoDB DEFAULT CHARSET=utf8 collate utf8_general_ci;
+
+MariaDB [p_sample]> insert into memo (name, email, password) values ('sample1', 'billie175@gmail.com', '1234');
+
+MariaDB [p_sample]> select * from memo;
++-----+---------+------+---------------------+----------+-------+---------------------+
+| no  | name    | id   | email               | password | other | created_at          |
++-----+---------+------+---------------------+----------+-------+---------------------+
+| 1   | sample1 | NULL | billie175@gmail.com | 1234     | NULL  | 2020-11-12 07:46:21 |
++-----+---------+------+---------------------+----------+-------+---------------------+
+
+
+
+
+;; 修正時刻: Thu Nov 12 08:07:23 2020
