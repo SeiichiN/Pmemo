@@ -3,6 +3,7 @@ package com.billies_works;
 
 import com.billies_works.model.PmemoEntity;
 import com.billies_works.util.GetUserInput;
+import com.billies_works.util.ClearConsole;
 
 public class CreatePmemoEntity {
     private PmemoEntity pmemo;
@@ -10,6 +11,10 @@ public class CreatePmemoEntity {
     public CreatePmemoEntity() {}
 
     public PmemoEntity create() {
+        // 画面クリア
+        ClearConsole clsConsole = new ClearConsole();
+        clsConsole.clear();
+        
         System.out.println("------ データの入力 ------");
         System.out.println("*印は必須項目です。 (0:中止)");
         String name = null;
@@ -46,4 +51,4 @@ public class CreatePmemoEntity {
     }
 }
 
-// 修正時刻: Thu Nov 12 21:56:11 2020
+// 修正時刻: Fri Nov 13 06:28:35 2020

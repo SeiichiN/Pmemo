@@ -77,6 +77,9 @@ public class PmemoDao {
         return pmemoList;
     }
 
+    /**
+     * 1件のデータを追加する
+     */
     public boolean addPmemo( PmemoEntity pmemo ) {
         try ( Connection conn =
               DriverManager.getConnection( JDBC_URL, DB_USER, DB_PASS )) {
@@ -101,7 +104,51 @@ public class PmemoDao {
         }
         return true;
     }
-    
+
+    /**
+     * 検索処理
+     *
+     * 登録名(name) で検索する。
+     * 部分一致で検索するから、複数の候補が返ってくる可能性がある。
+     */
+    public List<PmemoEntity> searchPmemoName( String name ) {
+        List<PmemoEntity> pmemoList = new ArrayList<>();
+
+        try ( Connection conn =
+              DriverManager.getConnection( JDBC_URL, DB_USER, DB_PASS )) {
+
+            String sql = "select * from " + TABLE_NAME +
+                "where name = '%?%'";
+            PreparedStatement pStmt = conn.prepareStatement( sql );
+            pStmt.setString( 1, name );
+            
+            ResultSet rs = pStmt.executeQuery();
+
+            while (rs.next()) {
+                int no = rs.getInt("no");
+                name = rs.getString("name");
+                String id = rs.getString("id");
+                String email = rs.getString("email");
+                String password = rs.getString("password");
+                String other = rs.getString("other");
+                Date created_at = rs.getTimestamp("created_at");
+
+                PmemoEntity pmemo = new PmemoEntity( name, id, email,
+                                                     password, other );
+                String dateString =
+                    new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(created_at);
+                pmemo.setNo( no );
+                pmemo.setCreated_at(dateString);
+                pmemoList.add(pmemo);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("データベースに接続できません。");
+            return null;
+        }
+
+        return pmemoList;
+    }
 }
 
-// 修正時刻: Thu Nov 12 15:29:29 2020
+// 修正時刻: Fri Nov 13 08:22:06 2020

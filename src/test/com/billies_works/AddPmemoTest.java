@@ -9,22 +9,16 @@ import com.billies_works.CreatePmemoEntity;
 
 public class AddPmemoTest {
     public static void main( String[] args) {
-        // String name = "sample3";
-        // String id = "yukiko";
-        // String email = "yukkie@sanada.jp";
-        // String password = "5678";
-        // String other = "samui ne.";
-
-        // PmemoEntity pmemo = new PmemoEntity( name, id, email,
-        //                                      password, other );
 
         CreatePmemoEntity createPmemo = new CreatePmemoEntity();
         PmemoEntity pmemo = createPmemo.create();
-        
-        AddPmemoLogic addPmemoLogic = new AddPmemoLogic();
-        addPmemoLogic.setPmemo( pmemo );
-        addPmemoLogic.execute();
+
+        if (pmemo != null) {
+            AddPmemoLogic addPmemoLogic = new AddPmemoLogic();
+            addPmemoLogic.setPmemo( pmemo );
+            addPmemoLogic.execute();
+        }
     }
 }
 
-// 修正時刻: Thu Nov 12 22:00:17 2020
+// 修正時刻: Fri Nov 13 07:02:54 2020
