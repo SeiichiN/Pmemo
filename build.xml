@@ -34,6 +34,7 @@
     <mkdir dir="${build.dir}/test-classes" />
     <copy todir="${dest.dir}/test-classes">
       <fileset dir="./conf" />
+      <fileset dir="./test_sh" />
     </copy>
   </target>
 
@@ -42,4 +43,4 @@
   </target>
 </project>
 
-<!-- 修正時刻: Thu Nov 12 12:48:32 2020 -->
+<!-- 修正時刻: Thu Nov 12 20:50:08 2020 -->

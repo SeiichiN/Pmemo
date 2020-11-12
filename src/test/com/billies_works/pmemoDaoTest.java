@@ -1,3 +1,4 @@
+package com.billies_works;
 
 import java.util.List;
 
@@ -17,4 +18,4 @@ public class pmemoDaoTest {
     }
 }
 
-// 修正時刻: Thu Nov 12 15:56:53 2020
+// 修正時刻: Thu Nov 12 20:29:11 2020
