@@ -1,5 +1,5 @@
 // GetUserInput.java ユーザーからの入力を受け取る
-package com.billies_works;
+package com.billies_works.util;
 
 import java.io.*;
 

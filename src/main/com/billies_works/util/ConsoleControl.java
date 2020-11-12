@@ -7,7 +7,7 @@
  * Linux の場合
  *   var cc = new ConsoleControl("/bin/bash", "-c", "clear");
  */
-package com.billies_works;
+package com.billies_works.util;
 
 import java.io.IOException;
 

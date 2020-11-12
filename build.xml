@@ -1,0 +1,45 @@
+<?xml version="1.0" ?>
+<project name="Pmemo" default="compile" basedir=".">
+  <property name="src.dir" value="./src" />
+  <property name="dest.dir" value="./target" />
+  <property name="build.dir" value="./target" />
+  <property name="lib.dir" value="./lib" />
+
+  <target name="compile" depends="make_build.dir">
+    <javac includeAntRuntime="false"
+           encoding="UTF-8"
+           srcdir="${src.dir}/main"
+           destdir="${dest.dir}/classes"
+           classpath="${lib.dir}/mysql-connector-java-8.0.21.jar"
+           />
+  </target>
+
+  <target name="test" depends="make_build_test.dir">
+      <javac includeAntRuntime="false"
+          encoding="UTF-8"
+          srcdir="${src.dir}/test"
+          destdir="${dest.dir}/test-classes"
+          classpath="${dest.dir}/classes;${dest.dir}/test-classes/junit-4.13.jar"
+          />
+  </target>
+
+  <target name="make_build.dir">
+    <mkdir dir="${build.dir}/classes" />
+    <copy todir="${dest.dir}/classes">
+      <fileset dir="./conf" />
+    </copy>
+  </target>
+
+  <target name="make_build_test.dir">
+    <mkdir dir="${build.dir}/test-classes" />
+    <copy todir="${dest.dir}/test-classes">
+      <fileset dir="./conf" />
+    </copy>
+  </target>
+
+  <target name="clean">
+    <delete dir="${build.dir}" />
+  </target>
+</project>
+
+<!-- 修正時刻: Thu Nov 12 12:48:32 2020 -->

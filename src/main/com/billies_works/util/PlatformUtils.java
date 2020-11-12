@@ -6,7 +6,7 @@
  *   https://www.saka-en.com/java/java-get-os/
  */
 
-package com.billies_works;
+package com.billies_works.util;
 
 public class PlatformUtils {
 
