@@ -7,12 +7,12 @@ import com.billies_works.dao.PmemoDao;
 import com.billies_works.model.PmemoEntity;
 import com.billies_works.model.SearchPmemoNameLogic;
 
-public class SearchPmemoTest {
+public class SearchPmemoNameTest {
     public static void main( String[] args) {
         Scanner scanner = new Scanner(System.in);
         
         System.out.println("------ 検索処理 ------");
-        System.out.println("登録名を入力 > ");
+        System.out.print("登録名を入力 > ");
         String name = scanner.nextLine();
         scanner.close();
 
@@ -28,4 +28,4 @@ public class SearchPmemoTest {
     }
 }
 
-// 修正時刻: Fri Nov 13 08:22:45 2020
+// 修正時刻: Fri Nov 13 14:30:45 2020

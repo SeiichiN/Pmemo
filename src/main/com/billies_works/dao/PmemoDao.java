@@ -106,7 +106,7 @@ public class PmemoDao {
     }
 
     /**
-     * 検索処理
+     * 検索処理(name)
      *
      * 登録名(name) で検索する。
      * 部分一致で検索するから、複数の候補が返ってくる可能性がある。
@@ -118,9 +118,11 @@ public class PmemoDao {
               DriverManager.getConnection( JDBC_URL, DB_USER, DB_PASS )) {
 
             String sql = "select * from " + TABLE_NAME +
-                "where name = '%?%'";
+                " where name like ?";
             PreparedStatement pStmt = conn.prepareStatement( sql );
-            pStmt.setString( 1, name );
+
+            String sqlText = "%" + name + "%";
+            pStmt.setString( 1, sqlText );
             
             ResultSet rs = pStmt.executeQuery();
 
@@ -149,6 +151,74 @@ public class PmemoDao {
 
         return pmemoList;
     }
+
+    /**
+     * 検索処理(no)
+     *
+     * no で検索する。
+     */
+    public PmemoEntity searchPmemoNo( int no ) {
+        PmemoEntity pmemo = null;
+        
+        try ( Connection conn =
+              DriverManager.getConnection( JDBC_URL, DB_USER, DB_PASS )) {
+
+            String sql = "select * from " + TABLE_NAME +
+                " where no = ?";
+            PreparedStatement pStmt = conn.prepareStatement( sql );
+
+            pStmt.setInt( 1, no );
+            
+            ResultSet rs = pStmt.executeQuery();
+
+            if (rs.next()) {
+                // no = rs.getInt(no);
+                String name = rs.getString("name");
+                String id = rs.getString("id");
+                String email = rs.getString("email");
+                String password = rs.getString("password");
+                String other = rs.getString("other");
+                Date created_at = rs.getTimestamp("created_at");
+
+                pmemo = new PmemoEntity( name, id, email,
+                                                     password, other );
+                String dateString =
+                    new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(created_at);
+                pmemo.setNo( no );
+                pmemo.setCreated_at(dateString);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("データベースに接続できません。");
+            return null;
+        }
+
+        return pmemo;
+    }
+
+    /**
+     * 1件のデータを削除する
+     */
+    public boolean deletePmemoNo( int no ) {
+        try ( Connection conn =
+              DriverManager.getConnection( JDBC_URL, DB_USER, DB_PASS )) {
+
+            String sql = "delete from " + TABLE_NAME +
+                " where no = ?";
+            PreparedStatement pStmt = conn.prepareStatement( sql );
+            pStmt.setInt( 1, no );
+
+            int result = pStmt.executeUpdate();
+            if (result != 1) {
+                return false;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("データの削除失敗。");
+            return false;
+        }
+        return true;
+    }
 }
 
-// 修正時刻: Fri Nov 13 08:22:06 2020
+// 修正時刻: Fri Nov 13 13:47:24 2020
