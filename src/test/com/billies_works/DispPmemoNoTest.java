@@ -8,6 +8,7 @@ import com.billies_works.model.PmemoEntity;
 import com.billies_works.model.SearchPmemoNoLogic;
 import com.billies_works.DispPmemoEntity;
 import com.billies_works.Submenu;
+import com.billies_works.EditPmemoEntity;
 
 public class DispPmemoNoTest {
     public static void main( String[] args) {
@@ -25,8 +26,11 @@ public class DispPmemoNoTest {
 
         Submenu submenu = new Submenu();
         int submenuNum = submenu.getNum();
-        System.out.println("選択番号 > " + submenuNum);
+        // System.out.println("選択番号 > " + submenuNum);
+
+        EditPmemoEntity editPmemoEntity = new EditPmemoEntity( pmemo );
+        editPmemoEntity.edit();
     }
 }
 
-// 修正時刻: Sat Nov 14 09:35:03 2020
+// 修正時刻: Sat Nov 14 18:00:41 2020

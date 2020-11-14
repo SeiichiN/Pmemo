@@ -11,7 +11,6 @@ import com.billies_works.util.ClearConsole;
  * 
  */
 public class DispPmemoEntity {
-    private PmemoEntity pmemo;
 
     public DispPmemoEntity() {}
 
@@ -33,4 +32,4 @@ public class DispPmemoEntity {
     }
 }
 
-// 修正時刻: Sat Nov 14 08:10:17 2020
+// 修正時刻: Sat Nov 14 17:13:45 2020
