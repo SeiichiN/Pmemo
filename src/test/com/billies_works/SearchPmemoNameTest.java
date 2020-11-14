@@ -17,10 +17,7 @@ public class SearchPmemoNameTest {
         scanner.close();
 
         SearchPmemoNameLogic searchNameLogic = new SearchPmemoNameLogic();
-        searchNameLogic.set( name );
-        searchNameLogic.execute();
-
-        List<PmemoEntity> pmemoList = searchNameLogic.get();
+        List<PmemoEntity> pmemoList = searchNameLogic.execute( name );
 
         for (PmemoEntity pmemo : pmemoList) {
             System.out.println( pmemo.toString() );
@@ -28,4 +25,4 @@ public class SearchPmemoNameTest {
     }
 }
 
-// 修正時刻: Fri Nov 13 14:30:45 2020
+// 修正時刻: Sat Nov 14 07:10:19 2020

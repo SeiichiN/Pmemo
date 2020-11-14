@@ -17,18 +17,14 @@ public class SearchPmemoNameLogic implements Command {
     private List<PmemoEntity> pmemoList;
     private String name;
 
-    public List<PmemoEntity> get() {
-        return pmemoList;
-    }
-
-    public void set( String name ) {
+    public List<PmemoEntity> execute( String name ) {
         this.name = name;
-    }
-    
-    public void execute() {
         PmemoDao pmemoDao = new PmemoDao();
         pmemoList = pmemoDao.searchPmemoName( name );
+        return pmemoList;
     }
+    
+    public void execute() {}
 }
 
-// 修正時刻: Fri Nov 13 08:18:04 2020
+// 修正時刻: Sat Nov 14 07:08:06 2020
