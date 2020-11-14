@@ -6,6 +6,7 @@ import java.util.HashSet;
 import com.billies_works.model.PmemoEntity;
 import com.billies_works.util.ScanInputInt;
 import com.billies_works.util.ScanInputString;
+import com.billies_works.model.UpdatePmemoLogic;
 
 public class EditPmemoEntity {
     PmemoEntity pmemo = null;
@@ -22,7 +23,13 @@ public class EditPmemoEntity {
         ScanInputString scanInputString = new ScanInputString( prompt );
         String newData = scanInputString.get();
         if (setNewData( num, newData )) {
-            System.out.println( pmemo.toString() );
+            // System.out.println( pmemo.toString() );
+            UpdatePmemoLogic updatePmemoLogic = new UpdatePmemoLogic();
+            if (updatePmemoLogic.execute( pmemo )) {
+                System.out.println("更新しました");
+            } else {
+                System.out.println("更新に失敗しました");
+            }
         } else {
             System.out.println("新データのセット失敗");
         }
@@ -66,4 +73,4 @@ public class EditPmemoEntity {
 
 
 
-// 修正時刻: Sat Nov 14 19:24:34 2020
+// 修正時刻: Sat Nov 14 23:48:13 2020

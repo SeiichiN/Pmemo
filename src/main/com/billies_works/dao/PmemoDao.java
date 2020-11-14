@@ -219,6 +219,37 @@ public class PmemoDao {
         }
         return true;
     }
+
+    /**
+     * データを更新する
+     */
+    public boolean updatePmemo( PmemoEntity pmemo ) {
+        try ( Connection conn =
+              DriverManager.getConnection( JDBC_URL, DB_USER, DB_PASS )) {
+
+            String sql = "UPDATE " + TABLE_NAME + " SET name = ?, id = ?," +
+                " email = ?, password = ?, other = ? " +
+                " WHERE no = ?";
+            PreparedStatement pStmt = conn.prepareStatement( sql );
+            pStmt.setString( 1, pmemo.getName() );
+            pStmt.setString( 2, pmemo.getId() );
+            pStmt.setString( 3, pmemo.getEmail() );
+            pStmt.setString( 4, pmemo.getPassword() );
+            pStmt.setString( 5, pmemo.getOther() );
+            pStmt.setInt( 6, pmemo.getNo() );
+
+            int result = pStmt.executeUpdate();
+            if (result != 1) {
+                return false;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("データの更新失敗。");
+            return false;
+        }
+        return true;
+    }
+
 }
 
-// 修正時刻: Fri Nov 13 13:47:24 2020
+// 修正時刻: Sat Nov 14 23:53:13 2020
