@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.billies_works.model.GetPmemoListLogic;
 import com.billies_works.model.PmemoEntity;
+import com.billies_works.util.ZenHanFormat;
 
 public class DisplayPmemoList {
     public DisplayPmemoList() {}
@@ -11,12 +12,49 @@ public class DisplayPmemoList {
     public void disp() {
         GetPmemoListLogic getPmemoListLogic = new GetPmemoListLogic();
         List<PmemoEntity> pmemoList = getPmemoListLogic.get();
+        ZenHanFormat zhf = new ZenHanFormat();
 
-        pmemoList.forEach( pmemo -> {
-                System.out.println( pmemo.toString() );
-            });
+        String headline = "-- name -- + - id - + ------ Email  ------ +" +
+            " --- password --- + ----- other ------ + ------ date -------";
+        System.out.println(headline);
+        int i = 0;
+        for ( PmemoEntity item : pmemoList )  {
+            i++;
+            String itemName = zhf.zhFormat((item.getName()), 10);
+            String itemId = zhf.zhFormat((item.getId()), 6);
+            String itemEmail = zhf.zhFormat((item.getEmail()), 20);
+            String itemPassword = zhf.zhFormat((item.getPassword()), 16);
+            String itemOther = zhf.zhFormat((item.getOther()), 18);
+            System.out.print(itemName + " | ");
+            System.out.print(itemId + " | ");
+            System.out.print(itemEmail + " | ");
+            System.out.print(itemPassword + " | ");
+            System.out.print(itemOther + " | ");
+            System.out.printf("%14s", item.getCreated_at());
+                
+            System.out.println();
+            if (i % 30 == 0) {
+                waitEnter();
+                System.out.println(headline);
+            }
+        }
     }
 
+    /**
+     *
+     */
+    static void waitEnter() {
+        System.out.println("Enterキーを押してください...");
+        try {
+            int c = 0;
+            do {
+                c = 0;
+                c = System.in.read();
+            } while (c != 10);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
 }
 
-// 修正時刻: Sun Nov 15 13:55:39 2020
+// 修正時刻: Sun Nov 15 15:31:13 2020

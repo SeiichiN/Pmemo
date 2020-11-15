@@ -10,23 +10,27 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Date;
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.billies_works.model.PmemoEntity;
+import com.billies_works.util.GetConf;
 
 public class PmemoDao {
-    private final String DB_NAME;
-    private final String DB_USER;
-    private final String DB_PASS;
-    private final String TABLE_NAME;
+    private String DB_NAME;
+    private String DB_USER;
+    private String DB_PASS;
+    private String TABLE_NAME;
 
-    private final String JDBC_URL;
+    private String JDBC_URL;
     
     public PmemoDao () {
-        this.DB_NAME = "p_sample";
-        this.DB_USER = "sasuke";
-        this.DB_PASS = "sasuke";
-        this.TABLE_NAME = "memo";
-        this.JDBC_URL = "jdbc:mysql://localhost:3306/p_sample?serverTimezone=JST";
+        loadConf();
+        // this.DB_NAME = "p_sample";
+        // this.DB_USER = "sasuke";
+        // this.DB_PASS = "sasuke";
+        // this.TABLE_NAME = "memo";
+        // this.JDBC_URL = "jdbc:mysql://localhost:3306/p_sample?serverTimezone=JST";
     }
 
     public PmemoDao (String dbname, String dbuser,
@@ -37,6 +41,19 @@ public class PmemoDao {
         this.TABLE_NAME = tablename;
         this.JDBC_URL = "jdbc:mysql://localhost:3306/" +
             dbname + "?serverTimezone=JST";
+    }
+
+    private void loadConf() {
+        Map<String, String> confList = new HashMap<String, String>();
+
+        confList = new GetConf("pmemo.conf").load();
+
+        DB_NAME = confList.get("dbname");
+        DB_USER = confList.get("username");
+        DB_PASS = confList.get("password");
+        TABLE_NAME = confList.get("tablename");
+        JDBC_URL = "jdbc:mysql://localhost:3306/" +
+            DB_NAME + "?serverTimezone=JST";
     }
 
     /**
@@ -254,4 +271,4 @@ public class PmemoDao {
 
 }
 
-// 修正時刻: Sun Nov 15 13:32:36 2020
+// 修正時刻: Sun Nov 15 17:05:03 2020
