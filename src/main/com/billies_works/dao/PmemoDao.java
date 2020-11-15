@@ -19,14 +19,14 @@ public class PmemoDao {
     private final String DB_PASS;
     private final String TABLE_NAME;
 
-    private final String JDBC_URL =
-        "jdbc:mysql://localhost:3306/p_sample?serverTimezone=JST";
-
+    private final String JDBC_URL;
+    
     public PmemoDao () {
         this.DB_NAME = "p_sample";
         this.DB_USER = "sasuke";
         this.DB_PASS = "sasuke";
         this.TABLE_NAME = "memo";
+        this.JDBC_URL = "jdbc:mysql://localhost:3306/p_sample?serverTimezone=JST";
     }
 
     public PmemoDao (String dbname, String dbuser,
@@ -35,6 +35,8 @@ public class PmemoDao {
         this.DB_USER = dbuser;
         this.DB_PASS = dbpass;
         this.TABLE_NAME = tablename;
+        this.JDBC_URL = "jdbc:mysql://localhost:3306/" +
+            dbname + "?serverTimezone=JST";
     }
 
     /**
@@ -252,4 +254,4 @@ public class PmemoDao {
 
 }
 
-// 修正時刻: Sat Nov 14 23:53:13 2020
+// 修正時刻: Sun Nov 15 13:32:36 2020

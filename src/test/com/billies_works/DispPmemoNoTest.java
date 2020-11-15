@@ -7,7 +7,7 @@ import com.billies_works.dao.PmemoDao;
 import com.billies_works.model.PmemoEntity;
 import com.billies_works.model.SearchPmemoNoLogic;
 import com.billies_works.DispPmemoEntity;
-import com.billies_works.Submenu;
+import com.billies_works.SubMenu;
 import com.billies_works.EditPmemoEntity;
 
 public class DispPmemoNoTest {
@@ -24,13 +24,13 @@ public class DispPmemoNoTest {
         DispPmemoEntity dispPmemo = new DispPmemoEntity();
         dispPmemo.disp( pmemo );
 
-        Submenu submenu = new Submenu();
-        int submenuNum = submenu.getNum();
-        // System.out.println("選択番号 > " + submenuNum);
+        SubMenu subMenu = new SubMenu();
+        int subMenuNum = subMenu.getNum();
+        // System.out.println("選択番号 > " + subMenuNum);
 
         EditPmemoEntity editPmemoEntity = new EditPmemoEntity( pmemo );
         editPmemoEntity.edit();
     }
 }
 
-// 修正時刻: Sat Nov 14 18:00:41 2020
+// 修正時刻: Sun Nov 15 08:43:49 2020

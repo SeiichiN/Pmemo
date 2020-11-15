@@ -9,8 +9,7 @@ import com.billies_works.model.GetPmemoListLogic;
 public class pmemoDaoTest {
     public static void main( String[] args) {
         GetPmemoListLogic getPmemoListLogic = new GetPmemoListLogic();
-        getPmemoListLogic.execute();
-        List<PmemoEntity> pmemoList = getPmemoListLogic.getPmemoList();
+        List<PmemoEntity> pmemoList = getPmemoListLogic.get();
 
         for (PmemoEntity pmemo : pmemoList) {
             System.out.println( pmemo.toString() );
@@ -18,4 +17,4 @@ public class pmemoDaoTest {
     }
 }
 
-// 修正時刻: Thu Nov 12 20:29:11 2020
+// 修正時刻: Sun Nov 15 13:55:07 2020

@@ -14,7 +14,7 @@ public class SearchPmemoNameTest {
         System.out.println("------ 検索処理 ------");
         System.out.print("登録名を入力 > ");
         String name = scanner.nextLine();
-        scanner.close();
+
 
         SearchPmemoNameLogic searchNameLogic = new SearchPmemoNameLogic();
         List<PmemoEntity> pmemoList = searchNameLogic.execute( name );
@@ -25,4 +25,4 @@ public class SearchPmemoNameTest {
     }
 }
 
-// 修正時刻: Sat Nov 14 07:10:19 2020
+// 修正時刻: Sun Nov 15 09:56:59 2020

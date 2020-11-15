@@ -15,10 +15,14 @@ public class AddPmemoTest {
 
         if (pmemo != null) {
             AddPmemoLogic addPmemoLogic = new AddPmemoLogic();
-            addPmemoLogic.setPmemo( pmemo );
-            addPmemoLogic.execute();
+            if (addPmemoLogic.execute( pmemo )) {
+                System.out.println("データを追加しました");
+            } else {
+                System.out.println("データの追加に失敗しました");
+            }
+
         }
     }
 }
 
-// 修正時刻: Fri Nov 13 07:02:54 2020
+// 修正時刻: Sun Nov 15 14:17:40 2020

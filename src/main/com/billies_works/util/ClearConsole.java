@@ -67,4 +67,4 @@ public class ClearConsole {
 
 
 
-// 修正時刻: Fri Nov 13 06:27:47 2020
+// 修正時刻: Sun Nov 15 11:13:59 2020

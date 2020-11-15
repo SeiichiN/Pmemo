@@ -6,16 +6,13 @@ import com.billies_works.dao.PmemoDao;
 import com.billies_works.command.Command;
 
 public class GetPmemoListLogic implements Command {
-    private List<PmemoEntity> pmemoList;
-
-    public List<PmemoEntity> getPmemoList() {
-        return pmemoList;
-    }
     
-    public void execute() {
+    public List<PmemoEntity> get() {
         PmemoDao pmemoDao = new PmemoDao();
-        pmemoList = pmemoDao.findAll();
+        return pmemoDao.findAll();
     }
+
+    public void execute() {}
 }
 
-// 修正時刻: Thu Nov 12 15:48:51 2020
+// 修正時刻: Sun Nov 15 13:52:39 2020
