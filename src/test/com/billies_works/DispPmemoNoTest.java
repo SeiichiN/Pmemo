@@ -22,15 +22,15 @@ public class DispPmemoNoTest {
         PmemoEntity pmemo = searchNoLogic.execute( no );
 
         DispPmemoEntity dispPmemo = new DispPmemoEntity();
-        dispPmemo.disp( pmemo );
+        dispPmemo.run();
 
-        SubMenu subMenu = new SubMenu();
-        int subMenuNum = subMenu.getNum();
+        SubMenu subMenu = new SubMenu( pmemo );
+        // int subMenuNum = subMenu.getNum();
         // System.out.println("選択番号 > " + subMenuNum);
 
-        EditPmemoEntity editPmemoEntity = new EditPmemoEntity( pmemo );
-        editPmemoEntity.edit();
+        // EditPmemoEntity editPmemoEntity = new EditPmemoEntity( pmemo );
+        // editPmemoEntity.edit();
     }
 }
 
-// 修正時刻: Sun Nov 15 08:43:49 2020
+// 修正時刻: Mon Nov 16 09:28:34 2020

@@ -12,6 +12,8 @@ public class DisplayPmemoList {
     public void disp() {
         GetPmemoListLogic getPmemoListLogic = new GetPmemoListLogic();
         List<PmemoEntity> pmemoList = getPmemoListLogic.get();
+        // pmemoList.forEach(ele -> System.out.println(ele.toString()));
+        
         ZenHanFormat zhf = new ZenHanFormat();
 
         String headline = "-- name -- + - id - + ------ Email  ------ +" +
@@ -57,4 +59,4 @@ public class DisplayPmemoList {
     }
 }
 
-// 修正時刻: Sun Nov 15 15:31:13 2020
+// 修正時刻: Mon Nov 16 10:41:57 2020

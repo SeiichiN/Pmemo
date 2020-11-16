@@ -11,6 +11,7 @@ public class ZenHanFormat {
         // getByteLength -- utf-8の場合、一文字3バイトとなる。
         // byteDiff -- 全角文字数
         int byteDiff = (getByteLength(target, Charset.forName("UTF-8")) - target.length()) / 2;
+        // int byteDiff = (getByteLength(target, Charset.forName("windows-31j")) - target.length()) / 2;
 
         // 全角以外の文字数
         int hankakuNum = target.length() - byteDiff;
@@ -69,3 +70,5 @@ public class ZenHanFormat {
  * [Java]半角・全角混合でも文字位置を合わせる
  *   https://qiita.com/Lilly008000/items/00876d8c61ce36bd5fba
  */
+
+// 修正時刻: Mon Nov 16 10:39:28 2020
