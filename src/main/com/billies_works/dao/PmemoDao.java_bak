@@ -1,5 +1,5 @@
 // PmemoDao.java
-package com.billies_works;
+package com.billies_works.dao;
 
 import java.sql.*;
 import java.util.*;

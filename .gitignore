@@ -1,4 +1,7 @@
 *.java~
 .vscode
 *~
+target
+*.conf
+conf
 

@@ -6,8 +6,10 @@
  *   var cc = new ConsoleControl("cmd", "/c", "cls");
  * Linux の場合
  *   var cc = new ConsoleControl("/bin/bash", "-c", "clear");
+ *
+ * cc.cls();
  */
-package com.billies_works;
+package com.billies_works.util;
 
 import java.io.IOException;
 
@@ -39,3 +41,5 @@ public class ConsoleControl {
          */
     }
 }
+
+// 修正時刻: Fri Nov 13 06:03:54 2020
