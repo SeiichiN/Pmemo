@@ -14,7 +14,7 @@ public class DisplayPmemoList {
         List<PmemoEntity> pmemoList = getPmemoListLogic.get();
         // pmemoList.forEach(ele -> System.out.println(ele.toString()));
         
-        ZenHanFormat zhf = new ZenHanFormat();
+        ZenHanFormat zhf = new ZenHanFormat("win");
 
         String headline = "-- name -- + - id - + ------ Email  ------ +" +
             " --- password --- + ----- other ------ + ------ date -------";
@@ -22,11 +22,11 @@ public class DisplayPmemoList {
         int i = 0;
         for ( PmemoEntity item : pmemoList )  {
             i++;
-            String itemName = zhf.zhFormat((item.getName()), 10);
-            String itemId = zhf.zhFormat((item.getId()), 6);
-            String itemEmail = zhf.zhFormat((item.getEmail()), 20);
-            String itemPassword = zhf.zhFormat((item.getPassword()), 16);
-            String itemOther = zhf.zhFormat((item.getOther()), 18);
+            String itemName = zhf.zhFormat(item.getName(), 10);
+            String itemId = zhf.zhFormat(item.getId(), 6);
+            String itemEmail = zhf.zhFormat(item.getEmail(), 20);
+            String itemPassword = zhf.zhFormat(item.getPassword(), 16);
+            String itemOther = zhf.zhFormat(item.getOther(), 18);
             System.out.print(itemName + " | ");
             System.out.print(itemId + " | ");
             System.out.print(itemEmail + " | ");
@@ -59,4 +59,4 @@ public class DisplayPmemoList {
     }
 }
 
-// 修正時刻: Mon Nov 16 10:41:57 2020
+// 修正時刻: Tue Nov 17 12:27:25 2020
