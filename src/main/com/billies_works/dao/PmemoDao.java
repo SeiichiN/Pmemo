@@ -21,6 +21,8 @@ public class PmemoDao {
     private String DB_USER;
     private String DB_PASS;
     private String TABLE_NAME;
+    private String HOST;
+    private String PORT;
 
     private String JDBC_URL;
     
@@ -52,7 +54,9 @@ public class PmemoDao {
         DB_USER = confList.get("username");
         DB_PASS = confList.get("password");
         TABLE_NAME = confList.get("tablename");
-        JDBC_URL = "jdbc:mysql://localhost:3306/" +
+        HOST = confList.get("host");
+        PORT = confList.get("port");
+        JDBC_URL = "jdbc:mysql://" + HOST + ":" + PORT + "/" +
             DB_NAME + "?serverTimezone=JST";
     }
 
@@ -271,4 +275,4 @@ public class PmemoDao {
 
 }
 
-// 修正時刻: Sun Nov 15 17:05:03 2020
+// 修正時刻: Wed Nov 18 06:58:01 2020
