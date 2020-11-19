@@ -23,7 +23,8 @@ public class PmemoDao {
     private String TABLE_NAME;
     private String HOST;
     private String PORT;
-
+    // 静的プレースフォルダに設定
+    private final String OPTION = "&useServerPrepStmts=true";
     private String JDBC_URL;
     
     public PmemoDao () {
@@ -42,7 +43,7 @@ public class PmemoDao {
         this.DB_PASS = dbpass;
         this.TABLE_NAME = tablename;
         this.JDBC_URL = "jdbc:mysql://localhost:3306/" +
-            dbname + "?serverTimezone=JST";
+            dbname + "?serverTimezone=JST" + OPTION;
     }
 
     private void loadConf() {
@@ -57,7 +58,7 @@ public class PmemoDao {
         HOST = confList.get("host");
         PORT = confList.get("port");
         JDBC_URL = "jdbc:mysql://" + HOST + ":" + PORT + "/" +
-            DB_NAME + "?serverTimezone=JST";
+            DB_NAME + "?serverTimezone=JST" + OPTION;
     }
 
     /**
@@ -275,4 +276,4 @@ public class PmemoDao {
 
 }
 
-// 修正時刻: Wed Nov 18 06:58:01 2020
+// 修正時刻: Fri Nov 20 07:35:12 2020
