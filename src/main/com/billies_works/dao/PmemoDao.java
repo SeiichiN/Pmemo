@@ -43,7 +43,7 @@ public class PmemoDao {
         this.DB_PASS = dbpass;
         this.TABLE_NAME = tablename;
         this.JDBC_URL = "jdbc:mysql://localhost:3306/" +
-            dbname + "?serverTimezone=JST" + OPTION;
+            dbname + "?serverTimezone=JST"; //  + OPTION;
     }
 
     private void loadConf() {
@@ -58,7 +58,7 @@ public class PmemoDao {
         HOST = confList.get("host");
         PORT = confList.get("port");
         JDBC_URL = "jdbc:mysql://" + HOST + ":" + PORT + "/" +
-            DB_NAME + "?serverTimezone=JST" + OPTION;
+            DB_NAME + "?serverTimezone=JST"; //  + OPTION;
     }
 
     /**
@@ -276,4 +276,4 @@ public class PmemoDao {
 
 }
 
-// 修正時刻: Fri Nov 20 07:35:12 2020
+// 修正時刻: Fri Nov 20 09:30:28 2020
