@@ -11,7 +11,7 @@ public class DisplayPmemoList {
     
     public void disp() {
         GetPmemoListLogic getPmemoListLogic = new GetPmemoListLogic();
-        List<PmemoEntity> pmemoList = getPmemoListLogic.get();
+        List<PmemoEntity> pmemoList = getPmemoListLogic.execute();
         // pmemoList.forEach(ele -> System.out.println(ele.toString()));
         
         ZenHanFormat zhf = new ZenHanFormat("win");
@@ -59,4 +59,4 @@ public class DisplayPmemoList {
     }
 }
 
-// 修正時刻: Tue Nov 17 12:27:25 2020
+// 修正時刻: Mon Nov 30 18:26:22 2020
